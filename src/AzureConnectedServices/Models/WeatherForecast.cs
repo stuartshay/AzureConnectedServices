@@ -1,4 +1,4 @@
-namespace AzureConnectedServices
+namespace AzureConnectedServices.Models
 {
     public class WeatherForecast
     {
