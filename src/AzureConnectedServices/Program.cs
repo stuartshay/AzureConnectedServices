@@ -75,7 +75,5 @@ void SetupApp()
     app.UseAuthorization();
 
     app.MapControllers();
-
-   
 }
 
