@@ -71,7 +71,7 @@ void SetupApp()
     
     //app.UseAzureAppConfiguration();
 
-    app.UseHttpsRedirection();
+    //app.UseHttpsRedirection();
 
     app.UseAuthorization();
 
