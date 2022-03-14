@@ -63,11 +63,11 @@ void AddServices()
 
 void SetupApp()
 {
-    if (app.Environment.IsDevelopment())
-    {
+    //if (app.Environment.IsDevelopment())
+    //{
         app.UseSwagger();
         app.UseSwaggerUI();
-    }
+    //}
     
     //app.UseAzureAppConfiguration();
 
