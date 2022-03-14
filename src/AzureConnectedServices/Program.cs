@@ -68,7 +68,8 @@ void SetupApp()
         app.UseSwagger();
         app.UseSwaggerUI();
     }
-    app.UseAzureAppConfiguration();
+    
+    //app.UseAzureAppConfiguration();
 
     app.UseHttpsRedirection();
 
