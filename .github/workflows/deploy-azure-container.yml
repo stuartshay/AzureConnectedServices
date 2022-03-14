@@ -85,7 +85,7 @@ jobs:
         with:
           resource-group: ${{ secrets.RESOURCE_GROUP }}
           location: "eastus"
-          dns-name-label: azureconnectedservices
+          dns-name-label: azureconnectedservices001
           image: ${{ env.AZURE_DOCKER_IMAGE }}
           name: azureconnectedservices
           registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
