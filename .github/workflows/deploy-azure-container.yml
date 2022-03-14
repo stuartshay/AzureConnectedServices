@@ -1,4 +1,4 @@
-ame: Deploy Azure Linux Container
+name: Deploy Azure Linux Container
 env:
   AZURE_REPOSITORY: azureconnectedservices.web
   AZURE_DOCKER_IMAGE_TAG: 6.0.${{ github.run_number }}-buildx-${{ github.sha }}
