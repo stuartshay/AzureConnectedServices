@@ -1,0 +1,68 @@
+ame: Deploy Azure Linux Container
+env:
+  AZURE_REPOSITORY: azureconnectedservices.web
+  AZURE_DOCKER_IMAGE_TAG: 6.0.${{ github.run_number }}-buildx-${{ github.sha }}
+  AZURE_DOCKER_IMAGE: ${{ secrets.REGISTRY_LOGIN_SERVER }}/azureconnectedservices.web:6.0.${{ github.run_number }}-buildx-${{ github.sha }}
+  BUILD_NUMBER: ${{ github.run_number }}
+  DOCKER_FILE: src/AzureConnectedServices/Dockerfile
+  BRANCH_NAME: "${{ github.ref_name }}"
+  DEFAULT_ECS_DESIRED_COUNT: 1
+
+on:
+  workflow_dispatch:
+    inputs:
+      desired_count:
+        type: choice
+        description: Container Desired Count
+        required: true
+        default: 1
+        options:
+          - 0
+          - 1
+          - 2
+          - 5
+
+  push:
+    paths:
+      - "src/**"
+      - "test/**"
+    branches:
+      - master
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout GitHub Action"
+        uses: actions/checkout@v2
+
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H:%M:%SZ')"
+
+      - name: Docker Image Uri
+        run: echo $AZURE_DOCKER_IMAGE
+
+      - name: Azure Container Registry Login
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: "Build and push image"
+        id: build-image
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - run: |
+          docker build -f ${{ env.DOCKER_FILE }} \
+                --build-arg BUILD_DATE=${{ steps.date.outputs.date }} \
+                --build-arg BUILD_NUMBER=${{ env.BUILD_NUMBER }} \
+                -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.AZURE_REPOSITORY}}:lattest \
+                -t ${{ env.AZURE_DOCKER_IMAGE }} .
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.AZURE_REPOSITORY}} --all-tags
