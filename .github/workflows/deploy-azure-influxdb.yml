@@ -1,7 +1,7 @@
 name: Deploy Influxdb Container
 env:
   AZURE_REPOSITORY: influx.db
-  AZURE_DOCKER_IMAGE_TAG: 1.7.${{ github.run_number }}-buildx-${{ github.sha }}
+  AZURE_DOCKER_IMAGE_TAG: 2.1.${{ github.run_number }}-buildx-${{ github.sha }}
   BUILD_NUMBER: ${{ github.run_number }}
   DOCKER_FILE: docker/influxdb/Dockerfile
   BRANCH_NAME: "${{ github.ref_name }}"
@@ -82,4 +82,4 @@ jobs:
           azure-file-volume-share-name: "connectedservices-db"
           azure-file-volume-account-name: "azureconnectedservices01"
           azure-file-volume-account-key: ${{ secrets.AZURE_FILE_VOLUME_KEY }}
-          azure-file-volume-mount-path: /var/lib/influxdb
+          azure-file-volume-mount-path: /var/lib/influxdb2

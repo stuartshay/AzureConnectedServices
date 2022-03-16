@@ -40,3 +40,5 @@ STORAGE_KEY=$(az storage account keys list --resource-group $resourceGroup \
 
 echo $STORAGE_KEY
 ```
+
+https://stackoverflow.com/questions/62429964/how-to-remove-all-files-from-azure-file-share
