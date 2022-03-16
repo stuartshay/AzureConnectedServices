@@ -1,4 +1,4 @@
-name: Deploy Influx db Container
+name: Deploy Influxdb Container
 env:
   AZURE_REPOSITORY: influx.db
   AZURE_DOCKER_IMAGE_TAG: 1.7.${{ github.run_number }}-buildx-${{ github.sha }}
