@@ -1,5 +1,5 @@
 FROM  influxdb:1.7
 
-COPY ./influxdb.conf /etc/influxdb/influxdb.conf
+COPY ./docker/influxdb/influxdb.conf /etc/influxdb/influxdb.conf
 
 CMD ["influxd"]
