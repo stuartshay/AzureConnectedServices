@@ -7,8 +7,7 @@ env:
   BRANCH_NAME: "${{ github.ref_name }}"
   DNS_LABEL_NAME: "azureconnectedservicesinflux"
   CONTAINER_NAME: "influxdb"
-  CONTAINER_PORTS: 8083
-
+  CONTAINER_PORTS: "8083 8086 8088"
 on:
   workflow_dispatch:
 
