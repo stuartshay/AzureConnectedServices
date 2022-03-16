@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 var services = builder.Services;
 
-SetupConfiguration();
+//SetupConfiguration();
 SetupServices();
 AddServices();
 
@@ -17,11 +17,11 @@ app.Run();
 void SetupConfiguration()
 {
     // Add Azure App Configuration to the container.
-    var azAppConfigConnection = builder.Configuration["AppConfig"];
+    var azAppConfigConnection = configuration["AppConfig"];
     if (!string.IsNullOrEmpty(azAppConfigConnection))
     {
         // Use the connection string if it is available.
-        builder.Configuration.AddAzureAppConfiguration(options =>
+        configuration.AddAzureAppConfiguration(options =>
         {
             options.Connect(azAppConfigConnection)
                 .ConfigureRefresh(refresh =>
@@ -31,12 +31,12 @@ void SetupConfiguration()
                 });
         });
     }
-    else if (Uri.TryCreate(builder.Configuration["Endpoints:AppConfig"], UriKind.Absolute, out var endpoint))
+    else if (Uri.TryCreate(configuration["Endpoints:AppConfig"], UriKind.Absolute, out var endpoint))
     {
         // Use Azure Active Directory authentication.
         // The identity of this app should be assigned 'App Configuration Data Reader' or 'App Configuration Data Owner' role in App Configuration.
         // For more information, please visit https://aka.ms/vs/azure-app-configuration/concept-enable-rbac
-        builder.Configuration.AddAzureAppConfiguration(options =>
+        configuration.AddAzureAppConfiguration(options =>
         {
             options.Connect(endpoint, new DefaultAzureCredential())
                 .ConfigureRefresh(refresh =>
@@ -46,14 +46,15 @@ void SetupConfiguration()
                 });
         });
     }
+
     builder.Services.AddAzureAppConfiguration();
 }
 
 void SetupServices()
 {
-    builder.Services.AddControllers();
-    builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    services.AddControllers();
+    services.AddEndpointsApiExplorer();
+    services.AddSwaggerGen();
 }
 
 void AddServices()
@@ -63,14 +64,15 @@ void AddServices()
 
 void SetupApp()
 {
-    if (app.Environment.IsDevelopment())
-    {
+    //if (app.Environment.IsDevelopment())
+    //{
         app.UseSwagger();
         app.UseSwaggerUI();
-    }
-    app.UseAzureAppConfiguration();
+    //}
+    
+    //app.UseAzureAppConfiguration();
 
-    app.UseHttpsRedirection();
+    //app.UseHttpsRedirection();
 
     app.UseAuthorization();
 

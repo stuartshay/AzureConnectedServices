@@ -1,4 +1,6 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+ARG APPLICATION_NAME='AzureConnectedServices.web'
+ARG BUILD_DATE='1/1/2022'
+ARG BUILD_NUMBER=0
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
@@ -17,6 +19,11 @@ FROM build AS publish
 RUN dotnet publish "AzureConnectedServices.csproj" -c Release -o /app/publish
 
 FROM base AS final
+
+LABEL org.label-schema.application=${APPLICATION_NAME}
+LABEL org.label-schema.build-date=${BUILD_DATE}
+LABEL org.label-schema.version=6.0.1.${BUILD_NUMBER}
+
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "AzureConnectedServices.dll"]
