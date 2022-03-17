@@ -20,8 +20,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\AzureConnectedServices\AzureConnectedServices.csproj" />
-  </ItemGroup>
-
 </Project>

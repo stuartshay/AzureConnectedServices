@@ -3,7 +3,7 @@ env:
   AZURE_REPOSITORY: azureconnectedservices.web
   AZURE_DOCKER_IMAGE_TAG: 6.0.${{ github.run_number }}-buildx-${{ github.sha }}
   BUILD_NUMBER: ${{ github.run_number }}
-  DOCKER_FILE: src/AzureConnectedServices/Dockerfile
+  DOCKER_FILE: src/AzureConnectedServices.WebApi/Dockerfile
   BRANCH_NAME: "${{ github.ref_name }}"
 
 on:
@@ -73,9 +73,7 @@ jobs:
           location: "eastus"
           dns-name-label: azureconnectedservices001
           image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.AZURE_REPOSITORY}}:${{ env.AZURE_DOCKER_IMAGE_TAG }}
-          #image: stuartshay/azuredevopskats:latest
           name: azureconnectedservices
           registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
           registry-username: ${{ secrets.REGISTRY_USERNAME }}
           registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-          #ports: 5000
