@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureConnectedServices.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureConnectedServices.WebApi", "src\AzureConnectedServices.WebApi\AzureConnectedServices.WebApi.csproj", "{F2CD148E-C5CD-4224-A5AE-90E641ED96A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureConnectedServices.Core", "src\AzureConnectedServices.Core\AzureConnectedServices.Core.csproj", "{F1BDAAD6-93D0-4547-A99F-42ECDC2AAB31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureConnectedServices.Core", "src\AzureConnectedServices.Core\AzureConnectedServices.Core.csproj", "{F1BDAAD6-93D0-4547-A99F-42ECDC2AAB31}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureConnectedServices.WorkerService", "src\AzureConnectedServices.WorkerService\AzureConnectedServices.WorkerService.csproj", "{D8FD29FD-9F30-4EB8-89C2-51887FC7E684}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,10 @@ Global
 		{F1BDAAD6-93D0-4547-A99F-42ECDC2AAB31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1BDAAD6-93D0-4547-A99F-42ECDC2AAB31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1BDAAD6-93D0-4547-A99F-42ECDC2AAB31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8FD29FD-9F30-4EB8-89C2-51887FC7E684}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8FD29FD-9F30-4EB8-89C2-51887FC7E684}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8FD29FD-9F30-4EB8-89C2-51887FC7E684}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8FD29FD-9F30-4EB8-89C2-51887FC7E684}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +45,7 @@ Global
 		{317F721B-4CFB-4575-BEB5-CBA4AA64577A} = {B939F01A-1AF1-4B3B-AD43-7F85654F9B4D}
 		{F2CD148E-C5CD-4224-A5AE-90E641ED96A9} = {78368F54-A52F-480B-91CF-996A1E61A58A}
 		{F1BDAAD6-93D0-4547-A99F-42ECDC2AAB31} = {78368F54-A52F-480B-91CF-996A1E61A58A}
+		{D8FD29FD-9F30-4EB8-89C2-51887FC7E684} = {78368F54-A52F-480B-91CF-996A1E61A58A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {821912E7-B3C3-4A83-B56E-5C16400B94C1}
