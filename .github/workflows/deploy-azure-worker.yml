@@ -74,7 +74,7 @@ jobs:
         with:
           resource-group: ${{ secrets.RESOURCE_GROUP }}
           location: "eastus"
-          dns-name-label: ${{ DNS_LABEL_NAME }}
+          dns-name-label: ${{ env.DNS_LABEL_NAME }}
           image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.AZURE_REPOSITORY}}:${{ env.AZURE_DOCKER_IMAGE_TAG }}
           name: ${{ env.CONTAINER_NAME }}
           registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
