@@ -7,9 +7,13 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
+LABEL org.label-schema.application=${APPLICATION_NAME}
+LABEL org.label-schema.build-date=${BUILD_DATE}
+LABEL org.label-schema.version=6.0.1.${BUILD_NUMBER}
+
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["src/AzureConnectedServices.WebApi/AzureConnectedServices.WebApi.csproj", "src/AzureConnectedServices/"]
+COPY ["src/AzureConnectedServices.WebApi/AzureConnectedServices.WebApi.csproj", "src/AzureConnectedServices.WebApi/"]
 RUN dotnet restore "src/AzureConnectedServices.WebApi/AzureConnectedServices.WebApi.csproj"
 COPY . .
 WORKDIR "/src/src/AzureConnectedServices.WebApi"
@@ -19,11 +23,6 @@ FROM build AS publish
 RUN dotnet publish "AzureConnectedServices.WebApi.csproj" -c Release -o /app/publish
 
 FROM base AS final
-
-LABEL org.label-schema.application=${APPLICATION_NAME}
-LABEL org.label-schema.build-date=${BUILD_DATE}
-LABEL org.label-schema.version=6.0.1.${BUILD_NUMBER}
-
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "AzureConnectedServices.WebApi.dll"]
