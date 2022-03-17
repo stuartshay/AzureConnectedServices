@@ -1,6 +1,7 @@
 using Azure.Identity;
 using AzureConnectedServices.Services;
 using AzureConnectedServices.Services.Interfaces;
+using Microsoft.AspNetCore.Rewrite;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -77,5 +78,10 @@ void SetupApp()
     app.UseAuthorization();
 
     app.MapControllers();
+
+    var option = new RewriteOptions();
+    option.AddRedirect("^$", "swagger");
+    app.UseRewriter(option);
+
 }
 
