@@ -83,3 +83,4 @@ jobs:
           azure-file-volume-account-name: "azureconnectedservices01"
           azure-file-volume-account-key: ${{ secrets.AZURE_FILE_VOLUME_KEY }}
           azure-file-volume-mount-path: /var/lib/influxdb2
+          environment-variables: WORKSPACE_ID=${{ secrets.LOG_ANALYTICS_WORKSPACE }} WORKSPACE_KEY=${{ secrets.LOG_ANALYTICS_WORKSPACE_KEY }}
