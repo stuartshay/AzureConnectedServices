@@ -6,7 +6,7 @@ env:
   DOCKER_FILE: src/AzureConnectedServices.WorkerService/Dockerfile
   BRANCH_NAME: "${{ github.ref_name }}"
   DNS_LABEL_NAME: "azureconnectedservicesworker"
-  CONTAINER_NAME: "azureconnectedservices.worker"
+  CONTAINER_NAME: "azureconnectedservices-worker"
   CONTAINER_PORTS: "5083 5086 5088"
 
 on:
