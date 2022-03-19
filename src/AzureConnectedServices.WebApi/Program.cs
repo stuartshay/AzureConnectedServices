@@ -1,4 +1,5 @@
 using Azure.Identity;
+using AzureConnectedServices.Core.Configuration;
 using AzureConnectedServices.Services;
 using AzureConnectedServices.Services.Interfaces;
 using Microsoft.AspNetCore.Rewrite;
@@ -28,7 +29,7 @@ void SetupConfiguration()
             options.Connect(azAppConfigConnection)
                 .ConfigureRefresh(refresh =>
                 {
-                    refresh.Register("AzureConnectedServices:Settings:Message", refreshAll: true);
+                    refresh.Register("AzureConnectedServices:Settings", refreshAll: true);
                 });
         });
     }
@@ -38,6 +39,8 @@ void SetupConfiguration()
 
 void SetupServices()
 {
+    services.Configure<Settings>(configuration.GetSection("AzureConnectedServices:Settings"));
+
     services.AddControllers();
     services.AddEndpointsApiExplorer();
     services.AddSwaggerGen();
@@ -56,7 +59,7 @@ void SetupApp()
         app.UseSwaggerUI();
     //}
     
-    //app.UseAzureAppConfiguration();
+    app.UseAzureAppConfiguration();
 
     //app.UseHttpsRedirection();
 
