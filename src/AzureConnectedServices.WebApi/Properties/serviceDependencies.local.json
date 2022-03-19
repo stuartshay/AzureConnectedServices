@@ -5,7 +5,7 @@
     },
     "appConfig1": {
       "secretStore": "LocalSecretsFile",
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.AppConfiguration/configurationStores/devopskats-config",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.AppConfiguration/configurationStores/azureconnectedservices-config",
       "type": "appConfig.azure",
       "connectionId": "AppConfig"
     }
