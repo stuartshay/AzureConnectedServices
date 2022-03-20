@@ -22,8 +22,8 @@ app.Run();
 
 void SetupConfiguration()
 {
-    var azAppConfigConnection = configuration["AppConfig"];
-    // GET ENV - -ENDPOINTS_APPCONFIG
+    var azAppConfigConnection = configuration["AppConfig"] != null ? 
+        configuration["AppConfig"] : Environment.GetEnvironmentVariable("ENDPOINTS_APPCONFIG");
 
     if (!string.IsNullOrEmpty(azAppConfigConnection))
     {
@@ -64,10 +64,10 @@ void AddServices()
 
 void SetupApp()
 {
-   app.UseSwagger();
-   app.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 
-    //app.UseAzureAppConfiguration();
+    app.UseAzureAppConfiguration();
 
     app.UseRouting();
     app.UseAuthorization();

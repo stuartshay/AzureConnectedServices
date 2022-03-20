@@ -28,14 +28,18 @@ namespace AzureConnectedServices.Core.HealthChecks
 
         //private readonly KeyVaultConfiguration _keyVaultConfiguration;
 
+        private readonly string _weatherRequestQueue;
+
         public VersionHealthCheck(ILogger<VersionHealthCheck> logger, IOptions<ApplicationOptions> settings)
         {
             _applicationVersionNumber = Assembly.GetEntryAssembly()?.GetName().Version?.ToString();
             _applicationBuildDate = GetAssemblyLastModifiedDate();
             _environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             _endpointsAppConfig = Environment.GetEnvironmentVariable("ENDPOINTS_APPCONFIG");
+            _weatherRequestQueue = settings?.Value?.Settings?.WeatherRequestQueueUrl;
             _dnsHostName = Dns.GetHostName();
             _osNameAndVersion = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
+
             _logger = logger;
             //_keyVaultConfiguration = settings?.Value?.KeyVaultConfiguration != null ? settings?.Value?.KeyVaultConfiguration : new KeyVaultConfiguration();
         }
@@ -56,6 +60,7 @@ namespace AzureConnectedServices.Core.HealthChecks
                 {"Environment", _environment},
                 {"Cluster Name", _endpointsAppConfig},
                 {"OsNameAndVersion", _osNameAndVersion},
+                {"WeatherRequestQueue", _weatherRequestQueue},
                // {"KeyStoreEnabled", _keyVaultConfiguration.Enabled},
             };
 
