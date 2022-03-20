@@ -28,6 +28,8 @@ namespace AzureConnectedServices.Core.HealthChecks
 
         private readonly string _weatherRequestQueue;
 
+        private readonly string _serviceBusConnectionString;
+
         public VersionHealthCheck(ILogger<VersionHealthCheck> logger, IOptionsSnapshot<Settings> settings)
         {
             _applicationVersionNumber = Assembly.GetEntryAssembly()?.GetName().Version?.ToString();
@@ -35,6 +37,7 @@ namespace AzureConnectedServices.Core.HealthChecks
             _environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             _endpointsAppConfig = Environment.GetEnvironmentVariable("ENDPOINTS_APPCONFIG");
             _weatherRequestQueue = settings?.Value?.WeatherRequestQueueUrl;
+            _serviceBusConnectionString = settings?.Value?.ServiceBusConnectionString;
             _dnsHostName = Dns.GetHostName();
             _osNameAndVersion = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
             _logger = logger;
@@ -57,6 +60,7 @@ namespace AzureConnectedServices.Core.HealthChecks
                 {"App Config Enpoint", _endpointsAppConfig},
                 {"OsNameAndVersion", _osNameAndVersion},
                 {"WeatherRequestQueue", _weatherRequestQueue},
+                {"ServiceBusConnectionString", _serviceBusConnectionString },
             };
 
             var healthStatus = !string.IsNullOrEmpty(_applicationVersionNumber) ? HealthStatus.Healthy : HealthStatus.Degraded;

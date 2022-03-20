@@ -4,9 +4,6 @@
     {
         public string WeatherRequestQueueUrl { get; set; }
 
-        // AzureConnectedServices:Settings:WeatherRequestQueueUrl
-
-        // httpsAzureConnectedServices:Settings:WeatherRequestQueueUrl:
-        //AzureConnectedServices.servicebus.windows.net/weatherrequest
+        public string ServiceBusConnectionString { get; set; }
     }
 }

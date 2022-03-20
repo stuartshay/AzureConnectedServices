@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using HealthChecks.UI.Client;
 using AzureConnectedServices.Core.HealthChecks;
+using Microsoft.Extensions.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -48,6 +49,11 @@ void SetupServices()
     services
       .AddHealthChecksUI()
       .AddInMemoryStorage();
+
+    services.AddAzureClients(builder =>
+    {
+        builder.AddServiceBusClient(configuration["AzureConnectedServices:Settings:ServiceBusConnectionString"]);
+    });
 
     services.AddControllers();
     
