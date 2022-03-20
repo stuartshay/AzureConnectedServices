@@ -81,4 +81,5 @@ jobs:
           registry-username: ${{ secrets.REGISTRY_USERNAME }}
           registry-password: ${{ secrets.REGISTRY_PASSWORD }}
           ports: ${{ env.CONTAINER_PORTS }}
+          environment-variables: ASPNETCORE_ENVIRONMENT=AzureContainer
           secure-environment-variables: ENDPOINTS_APPCONFIG=${{ secrets.ENDPOINTS_APPCONFIG }}
