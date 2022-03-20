@@ -26,22 +26,18 @@ namespace AzureConnectedServices.Core.HealthChecks
 
         private readonly ILogger<VersionHealthCheck> _logger;
 
-        //private readonly KeyVaultConfiguration _keyVaultConfiguration;
-
         private readonly string _weatherRequestQueue;
 
-        public VersionHealthCheck(ILogger<VersionHealthCheck> logger, IOptions<ApplicationOptions> settings)
+        public VersionHealthCheck(ILogger<VersionHealthCheck> logger, IOptionsSnapshot<Settings> settings)
         {
             _applicationVersionNumber = Assembly.GetEntryAssembly()?.GetName().Version?.ToString();
             _applicationBuildDate = GetAssemblyLastModifiedDate();
             _environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             _endpointsAppConfig = Environment.GetEnvironmentVariable("ENDPOINTS_APPCONFIG");
-            _weatherRequestQueue = settings?.Value?.Settings?.WeatherRequestQueueUrl;
+            _weatherRequestQueue = settings?.Value?.WeatherRequestQueueUrl;
             _dnsHostName = Dns.GetHostName();
             _osNameAndVersion = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
-
             _logger = logger;
-            //_keyVaultConfiguration = settings?.Value?.KeyVaultConfiguration != null ? settings?.Value?.KeyVaultConfiguration : new KeyVaultConfiguration();
         }
 
         /// <summary>
@@ -58,10 +54,9 @@ namespace AzureConnectedServices.Core.HealthChecks
                 {"BuildVersion", _applicationVersionNumber},
                 {"DNS HostName", _dnsHostName},
                 {"Environment", _environment},
-                {"Cluster Name", _endpointsAppConfig},
+                {"App Config Enpoint", _endpointsAppConfig},
                 {"OsNameAndVersion", _osNameAndVersion},
                 {"WeatherRequestQueue", _weatherRequestQueue},
-               // {"KeyStoreEnabled", _keyVaultConfiguration.Enabled},
             };
 
             var healthStatus = !string.IsNullOrEmpty(_applicationVersionNumber) ? HealthStatus.Healthy : HealthStatus.Degraded;

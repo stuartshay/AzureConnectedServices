@@ -14,8 +14,6 @@ SetupConfiguration();
 SetupServices();
 AddServices();
 
-Console.WriteLine(configuration["AzureConnectedServices:Settings:WeatherRequestQueueUrl"]);
-
 var app = builder.Build();
 SetupApp();
 app.Run();
