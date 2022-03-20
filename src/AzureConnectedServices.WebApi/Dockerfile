@@ -26,6 +26,7 @@ RUN dotnet build "AzureConnectedServices.WebApi.csproj" -c Release -o /app/build
 
 
 FROM build AS publish
+ARG BUILD_NUMBER
 RUN setversion 6.0.1.${BUILD_NUMBER}
 RUN dotnet publish "AzureConnectedServices.WebApi.csproj" -c Release -o /app/publish
 
