@@ -1,4 +1,3 @@
-using System.Net;
 using AzureConnectedServices.Core.Configuration;
 using AzureConnectedServices.Models;
 using AzureConnectedServices.Services.Interfaces;
