@@ -5,6 +5,10 @@ IHost host = Host.CreateDefaultBuilder(args)
     {
         services.AddHostedService<Worker>();
     })
+    .ConfigureAppConfiguration((hostingContext, config) =>
+    {
+
+    })
     .Build();
 
 await host.RunAsync();

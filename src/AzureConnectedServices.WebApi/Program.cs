@@ -1,13 +1,17 @@
-using Azure.Identity;
+using AzureConnectedServices.Core.Configuration;
 using AzureConnectedServices.Services;
 using AzureConnectedServices.Services.Interfaces;
 using Microsoft.AspNetCore.Rewrite;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using HealthChecks.UI.Client;
+using AzureConnectedServices.Core.HealthChecks;
+using Microsoft.Extensions.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 var services = builder.Services;
 
-//SetupConfiguration();
+SetupConfiguration();
 SetupServices();
 AddServices();
 
@@ -17,33 +21,17 @@ app.Run();
 
 void SetupConfiguration()
 {
-    // Add Azure App Configuration to the container.
-    var azAppConfigConnection = configuration["AppConfig"];
+    var azAppConfigConnection = configuration["AppConfig"] != null ? 
+        configuration["AppConfig"] : Environment.GetEnvironmentVariable("ENDPOINTS_APPCONFIG");
+
     if (!string.IsNullOrEmpty(azAppConfigConnection))
     {
-        // Use the connection string if it is available.
         configuration.AddAzureAppConfiguration(options =>
         {
             options.Connect(azAppConfigConnection)
                 .ConfigureRefresh(refresh =>
                 {
-                    // All configuration values will be refreshed if the sentinel key changes.
-                    refresh.Register("TestApp:Settings:Sentinel", refreshAll: true);
-                });
-        });
-    }
-    else if (Uri.TryCreate(configuration["Endpoints:AppConfig"], UriKind.Absolute, out var endpoint))
-    {
-        // Use Azure Active Directory authentication.
-        // The identity of this app should be assigned 'App Configuration Data Reader' or 'App Configuration Data Owner' role in App Configuration.
-        // For more information, please visit https://aka.ms/vs/azure-app-configuration/concept-enable-rbac
-        configuration.AddAzureAppConfiguration(options =>
-        {
-            options.Connect(endpoint, new DefaultAzureCredential())
-                .ConfigureRefresh(refresh =>
-                {
-                    // All configuration values will be refreshed if the sentinel key changes.
-                    refresh.Register("TestApp:Settings:Sentinel", refreshAll: true);
+                    refresh.Register("AzureConnectedServices:Settings", refreshAll: true);
                 });
         });
     }
@@ -53,7 +41,22 @@ void SetupConfiguration()
 
 void SetupServices()
 {
+    services.Configure<Settings>(configuration.GetSection("AzureConnectedServices:Settings"));
+    
+    services.AddHealthChecks()
+        .AddCheck<VersionHealthCheck>("version");
+
+    services
+      .AddHealthChecksUI()
+      .AddInMemoryStorage();
+
+    services.AddAzureClients(builder =>
+    {
+        builder.AddServiceBusClient(configuration["AzureConnectedServices:Settings:ServiceBusConnectionString"]);
+    });
+
     services.AddControllers();
+    
     services.AddEndpointsApiExplorer();
     services.AddSwaggerGen();
 }
@@ -65,23 +68,25 @@ void AddServices()
 
 void SetupApp()
 {
-    //if (app.Environment.IsDevelopment())
-    //{
-        app.UseSwagger();
-        app.UseSwaggerUI();
-    //}
-    
-    //app.UseAzureAppConfiguration();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 
-    //app.UseHttpsRedirection();
+    app.UseAzureAppConfiguration();
 
+    app.UseRouting();
     app.UseAuthorization();
 
-    app.MapControllers();
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+        endpoints.MapHealthChecks("health", new HealthCheckOptions()
+        {
+            Predicate = _ => true,
+            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+        });
+    });
 
     var option = new RewriteOptions();
     option.AddRedirect("^$", "swagger");
     app.UseRewriter(option);
-
 }
-

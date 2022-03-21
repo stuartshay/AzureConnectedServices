@@ -1,4 +1,4 @@
-name: Deploy Azure Linux Container
+name: Deploy Azure Linux API
 env:
   AZURE_REPOSITORY: azureconnectedservices.web
   AZURE_DOCKER_IMAGE_TAG: 6.0.${{ github.run_number }}-buildx-${{ github.sha }}
@@ -80,4 +80,9 @@ jobs:
           registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
           registry-username: ${{ secrets.REGISTRY_USERNAME }}
           registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+          log-analytics-workspace: ${{ secrets.LOG_ANALYTICS_WORKSPACE }}
+          log-analytics-workspace-key: ${{ secrets.LOG_ANALYTICS_WORKSPACE_KEY }}
+          log-type: "ContainerInstanceLogs"
           ports: ${{ env.CONTAINER_PORTS }}
+          environment-variables: ASPNETCORE_ENVIRONMENT=AzureContainer
+          secure-environment-variables: ENDPOINTS_APPCONFIG=${{ secrets.ENDPOINTS_APPCONFIG }}

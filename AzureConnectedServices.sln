@@ -15,6 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureConnectedServices.Core
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureConnectedServices.WorkerService", "src\AzureConnectedServices.WorkerService\AzureConnectedServices.WorkerService.csproj", "{D8FD29FD-9F30-4EB8-89C2-51887FC7E684}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "appsettings", "appsettings", "{E6760AD2-63D3-40C9-9806-14993EA202BD}"
+	ProjectSection(SolutionItems) = preProject
+		appsettings\AppSettings.json = appsettings\AppSettings.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
