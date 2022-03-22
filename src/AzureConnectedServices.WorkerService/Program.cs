@@ -19,11 +19,11 @@ IHost host = Host.CreateDefaultBuilder(args)
     })
     .ConfigureAppConfiguration((hostingContext, config) =>
     {
-        var settings = config.Build();
-        var azAppConfigConnection = settings["AppConfig"] != null ?
-        settings["AppConfig"] : Environment.GetEnvironmentVariable("ENDPOINTS_APPCONFIG");
+        //var settings = config.Build();
+        //var azAppConfigConnection = settings["AppConfig"] != null ?
+        //settings["AppConfig"] : Environment.GetEnvironmentVariable("ENDPOINTS_APPCONFIG");
 
-        Console.WriteLine($"azAppConfigConnection:{azAppConfigConnection}");
+        //Console.WriteLine($"azAppConfigConnection:{azAppConfigConnection}");
 
 
         //config.AddAzureAppConfiguration(options =>
