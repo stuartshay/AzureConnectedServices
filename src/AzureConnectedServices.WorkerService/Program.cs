@@ -2,12 +2,15 @@ using AzureConnectedServices.Core.Configuration;
 using AzureConnectedServices.WorkerService;
 using TinyHealthCheck;
 
+var processStartTime = DateTimeOffset.Now;
+
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
     {
         //var settings = hostContext.Configuration.GetSection("AppConfig");
         //services.Configure<Settings>(settings);
 
+        services.AddSingleton<WorkerStateService>();
         services.AddHostedService<Worker>();
         //https://blog.bruceleeharrison.com/2021/06/24/monitor-headless-worker-services-in-net-core-5-0/
         services.AddBasicTinyHealthCheckWithUptime(config =>
