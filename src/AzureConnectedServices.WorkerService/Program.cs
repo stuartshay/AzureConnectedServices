@@ -2,8 +2,8 @@ using AzureConnectedServices.WorkerService;
 using TinyHealthCheck;
 
 IHost host = Host.CreateDefaultBuilder(args)
-    .ConfigureServices(services =>
-    {
+    .ConfigureServices((hostingContext, services) =>
+       {
         services.AddHostedService<Worker>();
         services.AddBasicTinyHealthCheckWithUptime(config =>
         {
