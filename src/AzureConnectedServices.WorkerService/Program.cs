@@ -1,18 +1,17 @@
 using AzureConnectedServices.WorkerService;
 using TinyHealthCheck;
-using TinyHealthCheck.HealthChecks;
-using TinyHealthCheck.Models;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
     {
         services.AddHostedService<Worker>();
-        services.AddBasicTinyHealthCheck(config =>
+        services.AddBasicTinyHealthCheckWithUptime(config =>
         {
             config.Port = 3901;
             config.Hostname = "*";
             return config;
         });
+
     })
     .ConfigureAppConfiguration((hostingContext, config) =>
     {
