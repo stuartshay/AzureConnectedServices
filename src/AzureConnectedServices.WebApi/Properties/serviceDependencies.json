@@ -1,11 +1,12 @@
 {
   "dependencies": {
-    "secrets1": {
-      "type": "secrets"
-    },
     "appConfig1": {
       "type": "appConfig",
       "connectionId": "AppConfig"
+    },
+    "secrets1": {
+      "type": "secrets",
+      "connectionId": null
     }
   }
 }
