@@ -19,21 +19,17 @@ IHost host = Host.CreateDefaultBuilder(args)
     })
     .ConfigureAppConfiguration((hostingContext, config) =>
     {
-        var settings = config.Build();
-        var azAppConfigConnection = settings["AppConfig"] != null ?
-        settings["AppConfig"] : Environment.GetEnvironmentVariable("ENDPOINTS_APPCONFIG");
+        //var settings = config.Build();
+        //var azAppConfigConnection = settings["AppConfig"] != null ?
+        //settings["AppConfig"] : Environment.GetEnvironmentVariable("ENDPOINTS_APPCONFIG");
 
-        config.AddAzureAppConfiguration(options =>
-        options.Connect(azAppConfigConnection)
-           .ConfigureRefresh(refresh =>
-           {
-               refresh.Register("AzureConnectedServices:Settings", refreshAll: true);
-           }));
+        //config.AddAzureAppConfiguration(options =>
+        //options.Connect(azAppConfigConnection)
+        //   .ConfigureRefresh(refresh =>
+        //   {
+        //       refresh.Register("AzureConnectedServices:Settings", refreshAll: true);
+        //   }));
     })
     .Build();
 
 await host.RunAsync();
-
-
-
-
