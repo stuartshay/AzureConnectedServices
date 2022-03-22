@@ -4,13 +4,14 @@ using TinyHealthCheck;
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostingContext, services) =>
        {
-        services.AddHostedService<Worker>();
-        services.AddBasicTinyHealthCheckWithUptime(config =>
-        {
-            config.Port = 3901;
-            config.Hostname = "*";
-            return config;
-        });
+           services.AddSingleton<WorkerStateService>();
+           services.AddHostedService<Worker>();
+           services.AddBasicTinyHealthCheckWithUptime(config =>
+           {
+               config.Port = 3901;
+               config.Hostname = "*";
+               return config;
+           });
 
     })
     .ConfigureAppConfiguration((hostingContext, config) =>
