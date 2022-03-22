@@ -5,8 +5,8 @@ using TinyHealthCheck;
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
     {
-        var settings = hostContext.Configuration.GetSection("AppConfig");
-        services.Configure<Settings>(settings);
+        //var settings = hostContext.Configuration.GetSection("AppConfig");
+        //services.Configure<Settings>(settings);
 
         services.AddHostedService<Worker>();
         //https://blog.bruceleeharrison.com/2021/06/24/monitor-headless-worker-services-in-net-core-5-0/
