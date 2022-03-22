@@ -5,10 +5,11 @@ using TinyHealthCheck;
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
     {
-        var settings = hostContext.Configuration.GetSection("Settings");
+        var settings = hostContext.Configuration.GetSection("AppConfig");
         services.Configure<Settings>(settings);
 
         services.AddHostedService<Worker>();
+        //https://blog.bruceleeharrison.com/2021/06/24/monitor-headless-worker-services-in-net-core-5-0/
         services.AddBasicTinyHealthCheckWithUptime(config =>
         {
             config.Port = 3901;
@@ -23,6 +24,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         //var azAppConfigConnection = settings["AppConfig"] != null ?
         //settings["AppConfig"] : Environment.GetEnvironmentVariable("ENDPOINTS_APPCONFIG");
 
+        //https://www.johanohlin.com/posts/2019-10-22-using-azure-app-config-in-a-worker-service/
         //Console.WriteLine($"azAppConfigConnection:{azAppConfigConnection}");
 
 
