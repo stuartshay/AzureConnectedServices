@@ -79,7 +79,7 @@ void SetupApp()
     app.UseEndpoints(endpoints =>
     {
         endpoints.MapControllers();
-        endpoints.MapHealthChecks("health", new HealthCheckOptions()
+        endpoints.MapHealthChecks("healthz", new HealthCheckOptions()
         {
             Predicate = _ => true,
             ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
