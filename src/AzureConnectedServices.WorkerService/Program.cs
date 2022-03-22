@@ -1,4 +1,5 @@
 using AzureConnectedServices.WorkerService;
+using AzureConnectedServices.WorkerService.Extensions;
 using TinyHealthCheck;
 
 IHost host = Host.CreateDefaultBuilder(args)
@@ -12,8 +13,13 @@ IHost host = Host.CreateDefaultBuilder(args)
                config.Hostname = "*";
                return config;
            });
-
-    })
+           services.AddCustomTinyHealthCheck<CustomHealthCheck>(config =>
+           {
+               config.Port = 3902;
+               config.Hostname = "*";
+               return config;
+           });
+       })
     .ConfigureAppConfiguration((hostingContext, config) =>
     {
         //https://www.johanohlin.com/posts/2019-10-22-using-azure-app-config-in-a-worker-service/
