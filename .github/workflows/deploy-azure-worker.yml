@@ -7,7 +7,7 @@ env:
   BRANCH_NAME: "${{ github.ref_name }}"
   DNS_LABEL_NAME: "azureconnectedservicesworker"
   CONTAINER_NAME: "azureconnectedservices-worker"
-  CONTAINER_PORTS: "3901"
+  CONTAINER_PORTS: "3901 3902"
 
 on:
   workflow_dispatch:
