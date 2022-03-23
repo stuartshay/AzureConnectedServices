@@ -24,4 +24,5 @@
     <ProjectReference Include="..\AzureConnectedServices.Core\AzureConnectedServices.Core.csproj" />
   </ItemGroup>
 
+
 </Project>
