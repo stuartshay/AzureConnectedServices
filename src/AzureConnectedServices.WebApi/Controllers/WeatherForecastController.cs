@@ -1,3 +1,4 @@
+using Azure.Messaging.ServiceBus;
 using AzureConnectedServices.Core.Configuration;
 using AzureConnectedServices.Models;
 using AzureConnectedServices.Services.Interfaces;
@@ -16,23 +17,29 @@ namespace AzureConnectedServices.Controllers
         private readonly ILogger<WeatherForecastController> _logger;
 
         private readonly Settings _settings;
-        
-        public WeatherForecastController(IWeatherForecastService weatherForecastService, 
+
+        private readonly ServiceBusClient _client;
+
+        public WeatherForecastController(ServiceBusClient client, IWeatherForecastService weatherForecastService, 
             ILogger<WeatherForecastController> logger, IOptionsSnapshot<Settings> settings)
         {
             _logger = logger;
             _settings = settings.Value;
             _weatherForecastService = weatherForecastService;
+            _client = client;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        //[ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ResponseData<IEnumerable<WeatherForecast>>))]
+        //[ProducesResponseType((int)HttpStatusCode.Unauthorized, Type = typeof(Common.Models.Swagger.Failure))]
+        public async Task<ActionResult<IEnumerable<WeatherForecast>>> Get()
         {
             var result = _weatherForecastService.GetWeatherForecast();
 
-            _logger.LogInformation(_settings.WeatherRequestQueueUrl);
+            var sender = _client.CreateSender("weatherrequest");
+            await sender.SendMessageAsync((new ServiceBusMessage($"Message: {result}")));
 
-            return result;
+            return Ok(result);
         }
     }
 }

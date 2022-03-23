@@ -3,7 +3,6 @@ namespace AzureConnectedServices.WorkerService
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
-
         private readonly WorkerStateService _workerStateService;
 
         public Worker(ILogger<Worker> logger, WorkerStateService workerStateService)
@@ -14,7 +13,7 @@ namespace AzureConnectedServices.WorkerService
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            while (!stoppingToken.IsCancellationRequested && _workerStateService.Iteration < 10)
+            while (!stoppingToken.IsCancellationRequested)
             {
                 _workerStateService.IsRunning = true;
                 _logger.LogInformation("Worker iteration {0} running at: {time}", _workerStateService.Iteration, DateTimeOffset.Now);
