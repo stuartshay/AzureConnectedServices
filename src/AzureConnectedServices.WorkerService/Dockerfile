@@ -15,6 +15,10 @@ FROM build AS publish
 RUN dotnet publish "AzureConnectedServices.WorkerService.csproj" -c Release -o /app/publish
 
 FROM base AS final
+
+RUN cat /etc/os-release
+RUN dotnet --version
+
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "AzureConnectedServices.WorkerService.dll"]
