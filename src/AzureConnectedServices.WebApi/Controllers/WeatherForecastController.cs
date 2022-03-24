@@ -36,7 +36,7 @@ namespace AzureConnectedServices.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult> Post([FromBody] WeatherRequestModel request)
         {
             string jsonMessage = JsonSerializer.Serialize(request);
