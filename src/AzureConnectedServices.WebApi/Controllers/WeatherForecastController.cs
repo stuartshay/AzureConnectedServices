@@ -4,6 +4,7 @@ using AzureConnectedServices.Models;
 using AzureConnectedServices.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Text.Json;
 
 namespace AzureConnectedServices.Controllers
 {
@@ -29,17 +30,22 @@ namespace AzureConnectedServices.Controllers
             _client = client;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        //[ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ResponseData<IEnumerable<WeatherForecast>>))]
-        //[ProducesResponseType((int)HttpStatusCode.Unauthorized, Type = typeof(Common.Models.Swagger.Failure))]
-        public async Task<ActionResult<IEnumerable<WeatherForecast>>> Get()
+        /// <summary>
+        /// Post Weather Request to Message Queue. 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<ActionResult> Post([FromBody] WeatherRequestModel request)
         {
-            var result = _weatherForecastService.GetWeatherForecast();
+            string jsonMessage = JsonSerializer.Serialize(request);
+            var message = new ServiceBusMessage(jsonMessage);
 
             var sender = _client.CreateSender("weatherrequest");
-            await sender.SendMessageAsync((new ServiceBusMessage($"Message: {result}")));
+            await sender.SendMessageAsync((new ServiceBusMessage($"{message}")));
 
-            return Ok(result);
+            return Ok();
         }
     }
 }

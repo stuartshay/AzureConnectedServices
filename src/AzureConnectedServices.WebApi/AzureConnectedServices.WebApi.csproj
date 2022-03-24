@@ -22,7 +22,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AzureConnectedServices.Core\AzureConnectedServices.Core.csproj" />
+    <ProjectReference Include="..\AzureConnectedServices.Models\AzureConnectedServices.Models.csproj" />
   </ItemGroup>
 
-
+	<PropertyGroup>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<NoWarn>$(NoWarn);1591</NoWarn>
+	</PropertyGroup>
+		
 </Project>
