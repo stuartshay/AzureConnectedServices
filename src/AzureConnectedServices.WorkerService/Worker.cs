@@ -25,7 +25,6 @@ namespace AzureConnectedServices.WorkerService
                 _logger.LogInformation("Worker iteration {0} running at: {time}", _workerStateService.Iteration, DateTimeOffset.Now);
                 _logger.LogInformation("ServiceBusConnectionString {0}", _settings?.ServiceBusConnectionString);
 
-
                 await Task.Delay(2500, stoppingToken);
                 _workerStateService.Iteration++;
             }
