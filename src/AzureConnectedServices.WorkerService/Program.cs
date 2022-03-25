@@ -4,11 +4,28 @@ using AzureConnectedServices.WorkerService.Extensions;
 using TinyHealthCheck;
 
 IHost host = Host.CreateDefaultBuilder(args)
+    .ConfigureAppConfiguration((hostingContext, config) =>
+     {
+         var configuration = config.Build();
+         var azAppConfigConnection = configuration["AppConfig"] != null ?
+            configuration["AppConfig"] : Environment.GetEnvironmentVariable("ENDPOINTS_APPCONFIG");
+
+         config.AddAzureAppConfiguration(options =>
+         {
+            options.Connect(azAppConfigConnection)
+            .Select("AzureConnectedServices:*")
+            .ConfigureRefresh(refresh =>
+            {
+              refresh.Register("AzureConnectedServices:Settings:ServiceBusConnectionString", refreshAll: true);
+            });
+         });
+    })
     .ConfigureServices((hostingContext, services) =>
     {
-        //var settings = hostingContext?.Configuration?.GetSection("Endpoints");
-        //services.Configure<Endpoints>(settings);
-
+        var settings = hostingContext?.Configuration?.GetSection("Settings");
+        services.Configure<Settings>(settings);
+        
+        services.AddAzureAppConfiguration();
         services.AddSingleton<WorkerStateService>();
         services.AddHostedService<Worker>();
         services.AddBasicTinyHealthCheckWithUptime(config =>
@@ -23,23 +40,6 @@ IHost host = Host.CreateDefaultBuilder(args)
             config.Hostname = "*";
             return config;
         });
-    })
-    .ConfigureAppConfiguration((hostingContext, config) =>
-    {
-        var settings = config.Build();
-        //config.AddAzureAppConfiguration(options =>
-        //{
-        //    options.Connect(settings["AzureConnectedServices:Settings"])
-        //      .ConfigureRefresh(refresh =>
-        //      {
-        //          refresh.Register("AzureConnectedServices:Settings", refreshAll: true);
-        //      });
-        //});
-
-
-
-        //https://www.johanohlin.com/posts/2019-10-22-using-azure-app-config-in-a-worker-service/
-        //https://docs.microsoft.com/en-us/azure/azure-app-configuration/quickstart-dotnet-core-app
     })
     .Build();
 

@@ -84,4 +84,5 @@ jobs:
           log-analytics-workspace-key: ${{ secrets.LOG_ANALYTICS_WORKSPACE_KEY }}
           log-type: "ContainerInstanceLogs"
           ports: ${{ env.CONTAINER_PORTS }}
+          environment-variables: ASPNETCORE_ENVIRONMENT=AzureContainer
           secure-environment-variables: ENDPOINTS_APPCONFIG=${{ secrets.ENDPOINTS_APPCONFIG }}

@@ -60,7 +60,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     outputs:
-      app-url: ${{ steps.deploy-container.outputs.app-url }}
+      app_url: ${{ steps.deploy-container.outputs.app-url }}
 
     steps:
       - name: "Login via Azure CLI"
@@ -86,3 +86,9 @@ jobs:
           ports: ${{ env.CONTAINER_PORTS }}
           environment-variables: ASPNETCORE_ENVIRONMENT=AzureContainer
           secure-environment-variables: ENDPOINTS_APPCONFIG=${{ secrets.ENDPOINTS_APPCONFIG }}
+
+  health-check:
+    needs: deploy
+    uses: stuartshay/WorkflowCommon/.github/workflows/health-check.yml@master
+    with:
+      test_url: ${{needs.deploy.outputs.app_url}}healthz
