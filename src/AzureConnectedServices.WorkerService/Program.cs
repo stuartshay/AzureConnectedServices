@@ -6,8 +6,8 @@ using TinyHealthCheck;
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostingContext, services) =>
     {
-        //var settings = hostingContext?.Configuration?.GetSection("Endpoints");
-        //services.Configure<Endpoints>(settings);
+        var settings = hostingContext?.Configuration?.GetSection("Settings");
+        services.Configure<Settings>(settings);
 
         services.AddSingleton<WorkerStateService>();
         services.AddHostedService<Worker>();
@@ -27,6 +27,9 @@ IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureAppConfiguration((hostingContext, config) =>
     {
         var settings = config.Build();
+
+        
+
         //config.AddAzureAppConfiguration(options =>
         //{
         //    options.Connect(settings["AzureConnectedServices:Settings"])
