@@ -6,11 +6,11 @@ using TinyHealthCheck;
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureAppConfiguration((hostingContext, config) =>
      {
-         var configuration = config.Build();
-         var azAppConfigConnection = configuration["AppConfig"] != null ?
-            configuration["AppConfig"] : Environment.GetEnvironmentVariable("ENDPOINTS_APPCONFIG");
+        var configuration = config.Build();
+        var azAppConfigConnection = configuration["AppConfig"] != null ?
+           configuration["AppConfig"] : Environment.GetEnvironmentVariable("ENDPOINTS_APPCONFIG");
 
-         config.AddAzureAppConfiguration(options =>
+        config.AddAzureAppConfiguration(options =>
          {
             options.Connect(azAppConfigConnection)
             .Select("AzureConnectedServices:*")
