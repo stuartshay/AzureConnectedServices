@@ -41,9 +41,9 @@ namespace AzureConnectedServices.Controllers
         {
             string jsonMessage = JsonSerializer.Serialize(request);
             var message = new ServiceBusMessage(jsonMessage);
-
+          
             var sender = _client.CreateSender("weatherrequest");
-            await sender.SendMessageAsync((new ServiceBusMessage($"{message}")));
+            await sender.SendMessageAsync(message);
 
             return Ok();
         }
