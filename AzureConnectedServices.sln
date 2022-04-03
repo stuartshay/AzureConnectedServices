@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureConnectedServices.Core
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureConnectedServices.WorkerService", "src\AzureConnectedServices.WorkerService\AzureConnectedServices.WorkerService.csproj", "{D8FD29FD-9F30-4EB8-89C2-51887FC7E684}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureConnectedServices.Models", "src\AzureConnectedServices.Models\AzureConnectedServices.Models.csproj", "{DA6661D6-22F4-46DA-BEC4-6DFE828C9850}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureConnectedServices.Models", "src\AzureConnectedServices.Models\AzureConnectedServices.Models.csproj", "{DA6661D6-22F4-46DA-BEC4-6DFE828C9850}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureConnectedServices.GrpcService", "src\AzureConnectedServices.GrpcService\AzureConnectedServices.GrpcService.csproj", "{0A037C56-0937-4826-BF59-9FF9EE3CD91B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{DA6661D6-22F4-46DA-BEC4-6DFE828C9850}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA6661D6-22F4-46DA-BEC4-6DFE828C9850}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA6661D6-22F4-46DA-BEC4-6DFE828C9850}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A037C56-0937-4826-BF59-9FF9EE3CD91B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A037C56-0937-4826-BF59-9FF9EE3CD91B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A037C56-0937-4826-BF59-9FF9EE3CD91B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A037C56-0937-4826-BF59-9FF9EE3CD91B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{F1BDAAD6-93D0-4547-A99F-42ECDC2AAB31} = {78368F54-A52F-480B-91CF-996A1E61A58A}
 		{D8FD29FD-9F30-4EB8-89C2-51887FC7E684} = {78368F54-A52F-480B-91CF-996A1E61A58A}
 		{DA6661D6-22F4-46DA-BEC4-6DFE828C9850} = {78368F54-A52F-480B-91CF-996A1E61A58A}
+		{0A037C56-0937-4826-BF59-9FF9EE3CD91B} = {78368F54-A52F-480B-91CF-996A1E61A58A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {821912E7-B3C3-4A83-B56E-5C16400B94C1}

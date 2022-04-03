@@ -7,6 +7,7 @@ using HealthChecks.UI.Client;
 using AzureConnectedServices.Core.HealthChecks;
 using Microsoft.Extensions.Azure;
 using System.Reflection;
+using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -59,11 +60,13 @@ void SetupServices()
     services.AddControllers();
     
     services.AddEndpointsApiExplorer();
-    services.AddSwaggerGen(c =>
+    services.AddSwaggerGen(s =>
     {
         var xmlFilePath = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
-        c.IncludeXmlComments(xmlFilePath);
+        s.IncludeXmlComments(xmlFilePath);
+        s.ExampleFilters();
     });
+    services.AddSwaggerExamplesFromAssemblies(Assembly.GetEntryAssembly());
 }
 
 void AddServices()

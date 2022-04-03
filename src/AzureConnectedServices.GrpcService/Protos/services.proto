@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package connectedservices.protobuf;
+
+option csharp_namespace = "AzureConnectedServices.GrpcService.Protos";
+
+service ProtoFirstGreeter {
+  rpc UnaryOperation (SampleProtoFirstRequest) returns (SampleProtoFirstReply);
+  rpc ServerStreamingOperation (SampleProtoFirstRequest) returns (stream SampleProtoFirstReply);
+  rpc ClientStreamingOperation (stream SampleProtoFirstRequest) returns (SampleProtoFirstReply);
+  rpc DuplexStreamingOperation (stream SampleProtoFirstRequest) returns (stream SampleProtoFirstReply);
+}
+
+service NoaaWeatherService {
+  rpc UnaryOperation (SampleProtoFirstRequest) returns (NoaaWeatherRequest);
+}

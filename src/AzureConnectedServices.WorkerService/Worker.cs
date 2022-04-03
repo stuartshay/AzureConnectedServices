@@ -1,5 +1,7 @@
 using Azure.Messaging.ServiceBus;
 using AzureConnectedServices.Models;
+using AzureConnectedServices.Models.Client;
+using AzureConnectedServices.WorkerService.Clients;
 using System.Text.Json;
 
 namespace AzureConnectedServices.WorkerService
@@ -12,15 +14,18 @@ namespace AzureConnectedServices.WorkerService
 
         private ServiceBusClient _client;
         private ServiceBusProcessor _processor;
+        private readonly INoaaWeatherClient _noaaWeatherClient;
 
-        public Worker(ILogger<Worker> logger, WorkerStateService workerStateService, IConfiguration configuration)
+        public Worker(INoaaWeatherClient noaaWeatherClient, ILogger<Worker> logger, WorkerStateService workerStateService, IConfiguration configuration)
         {
             _logger = logger;
             _workerStateService = workerStateService;
             _configuration = configuration;
+            _noaaWeatherClient = noaaWeatherClient;
 
             string key = "AzureConnectedServices:Settings:ServiceBusConnectionString";
             string connectionString = _configuration[key];
+            _logger.LogInformation("ServiceBusConnectionString {0}", connectionString);
 
             _client = new ServiceBusClient(connectionString);
         }
@@ -31,15 +36,24 @@ namespace AzureConnectedServices.WorkerService
             {
                 _workerStateService.IsRunning = true;
 
-                string key = "AzureConnectedServices:Settings:ServiceBusConnectionString";
-                string connectionString = _configuration[key];
-
                 _logger.LogInformation("Worker iteration {0} running at: {time}", _workerStateService.Iteration, DateTimeOffset.Now);
-                _logger.LogInformation("ServiceBusConnectionString {0}", connectionString);
 
                 _processor = _client.CreateProcessor("weatherrequest", new ServiceBusProcessorOptions());
                 _processor.ProcessMessageAsync += MessageHandler;
                 _processor.ProcessErrorAsync += ErrorHandler;
+
+                 var request = new NoaaWeatherRequest
+                 {
+                     StationId = "GHCND:USW00094728",
+                     DataSetId = "GHCND",
+                     StartDate = "2001-01-01",
+                     EndDate = "2001-01-01",
+                     Limit = 100,
+                 };
+
+                 //var result = await _noaaWeatherClient.WeatherForecast(request);
+
+
 
                  await _processor.StartProcessingAsync();
 

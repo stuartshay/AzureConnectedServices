@@ -4,6 +4,7 @@ using AzureConnectedServices.Models;
 using AzureConnectedServices.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Text;
 using System.Text.Json;
 
 namespace AzureConnectedServices.Controllers
@@ -39,13 +40,25 @@ namespace AzureConnectedServices.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult> Post([FromBody] WeatherRequestModel request)
         {
-            string jsonMessage = JsonSerializer.Serialize(request);
-            var message = new ServiceBusMessage(jsonMessage);
-          
+            var body = JsonSerializer.Serialize(request);
+            //var message = new ServiceBusMessage
+            //{
+            //    Body = new BinaryData(body),
+            //    CorrelationId = System.Guid.NewGuid().ToString(),
+            //    MessageId = System.Guid.NewGuid().ToString(),
+            //};
+
             var sender = _client.CreateSender("weatherrequest");
+            ServiceBusMessage message = new ServiceBusMessage("body");
+
+            // send the message
             await sender.SendMessageAsync(message);
 
             return Ok();
         }
+
+
+
+
     }
 }

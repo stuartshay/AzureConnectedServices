@@ -11,3 +11,9 @@ http://azureconnectedservices001.eastus.azurecontainer.io
 ## Azure Linux Worker
 
 http://azureconnectedservicesworker.eastus.azurecontainer.io:3901/healthz
+
+## Certificate Setup
+
+```
+dotnet dev-certs https --trust
+```

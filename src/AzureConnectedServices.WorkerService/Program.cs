@@ -1,7 +1,11 @@
 using AzureConnectedServices.Core.Configuration;
 using AzureConnectedServices.WorkerService;
+using AzureConnectedServices.WorkerService.Clients;
 using AzureConnectedServices.WorkerService.Extensions;
+using Microsoft.Extensions.Configuration;
 using TinyHealthCheck;
+
+
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureAppConfiguration((hostingContext, config) =>
@@ -21,12 +25,19 @@ IHost host = Host.CreateDefaultBuilder(args)
          });
     })
     .ConfigureServices((hostingContext, services) =>
-    {
+    {        
         var settings = hostingContext?.Configuration?.GetSection("Settings");
         services.Configure<Settings>(settings);
-        
+
+        services.AddOptions();
         services.AddAzureAppConfiguration();
+
         services.AddSingleton<WorkerStateService>();
+        services.AddHttpClient<INoaaWeatherClient, NoaaWeatherClient>(client =>
+        {
+            client.BaseAddress = new Uri("https://www.ncdc.noaa.gov");
+            client.DefaultRequestHeaders.Add("token", "cbhbnwSDElzXjbovAErPxLGDAGiVQaEb");
+        });
         services.AddHostedService<Worker>();
         services.AddBasicTinyHealthCheckWithUptime(config =>
         {
