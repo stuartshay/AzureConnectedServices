@@ -1,6 +1,8 @@
 using AzureConnectedServices.GrpcService.Services.CodeFirst;
 using GrpcBrowser.Configuration;
 using ProtoBuf.Grpc.Server;
+using AzureConnectedServices.Services.ProtoFirst;
+using AzureConnectedServices.Services.Proto;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,5 +35,5 @@ void SetupApp()
     app.MapGrpcService<CodeFirstGreeterService>().AddToGrpcBrowserWithService<ICodeFirstGreeterService>();
     app.MapGrpcService<NoaaWeatherService>().AddToGrpcBrowserWithService<INoaaWeatherService>();
 
-   // app.MapGrpcService<ProtoFirstSampleService>().AddToGrpcBrowserWithClient<ProtoFirstGreeter.ProtoFirstGreeterClient>();
+    app.MapGrpcService<ProtoFirstSampleService>().AddToGrpcBrowserWithClient<ProtoFirstGreeter.ProtoFirstGreeterClient>();
 }

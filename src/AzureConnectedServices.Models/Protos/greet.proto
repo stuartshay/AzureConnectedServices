@@ -1,0 +1,13 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "AzureConnectedServices.Services.Proto";
+
+package azureconnectedservices.protobuf;
+
+message SampleProtoFirstRequest {
+  string content = 1;
+}
+
+message SampleProtoFirstReply {
+  string content = 1;
+}
