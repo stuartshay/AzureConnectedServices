@@ -4,6 +4,8 @@ using ProtoBuf.Grpc.Server;
 using AzureConnectedServices.Services.ProtoFirst;
 using AzureConnectedServices.Services.Proto;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 AddServices();
@@ -14,9 +16,10 @@ app.Run();
 
 void AddServices()
 {
-   builder.Services.AddGrpc();
-   builder.Services.AddCodeFirstGrpc();
-   builder.Services.AddGrpcBrowser();
+    builder.Services.AddGrpc();
+    builder.Services.AddGrpcReflection();
+    builder.Services.AddCodeFirstGrpc();
+    builder.Services.AddGrpcBrowser();
 }
 
 void SetupApp()
@@ -25,6 +28,16 @@ void SetupApp()
 
     app.UseGrpcBrowser();
     app.MapGrpcBrowser();
+
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapGrpcService<CodeFirstGreeterService>().AddToGrpcBrowserWithService<ICodeFirstGreeterService>();
+        endpoints.MapGrpcService<NoaaWeatherService>().AddToGrpcBrowserWithService<INoaaWeatherService>();
+        endpoints.MapGrpcService<ProtoFirstSampleService>().AddToGrpcBrowserWithClient<ProtoFirstGreeter.ProtoFirstGreeterClient>();
+
+        endpoints.MapGrpcReflectionService();
+    });
+
     app.MapGet("/", context =>
     {
         context.Response.StatusCode = 302;
@@ -32,8 +45,4 @@ void SetupApp()
         return Task.CompletedTask;
     });
 
-    app.MapGrpcService<CodeFirstGreeterService>().AddToGrpcBrowserWithService<ICodeFirstGreeterService>();
-    app.MapGrpcService<NoaaWeatherService>().AddToGrpcBrowserWithService<INoaaWeatherService>();
-
-    app.MapGrpcService<ProtoFirstSampleService>().AddToGrpcBrowserWithClient<ProtoFirstGreeter.ProtoFirstGreeterClient>();
 }
