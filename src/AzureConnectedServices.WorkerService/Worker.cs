@@ -1,7 +1,7 @@
 using Azure.Messaging.ServiceBus;
+using AzureConnectedServices.Core.HttpClients;
 using AzureConnectedServices.Models;
 using AzureConnectedServices.Models.Client;
-using AzureConnectedServices.WorkerService.Clients;
 using System.Text.Json;
 
 namespace AzureConnectedServices.WorkerService

@@ -2,7 +2,7 @@
 using ProtoBuf.Grpc;
 using System.ServiceModel;
 
-namespace AzureConnectedServices.GrpcService.Services.CodeFirst;
+namespace AzureConnectedServices.GrpcService.Services;
 
 /// <summary>
 /// This is a sample service that demonstrates all types of gRPC operations from a code-first gRPC service

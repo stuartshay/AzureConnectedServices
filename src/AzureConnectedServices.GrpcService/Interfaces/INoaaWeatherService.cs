@@ -1,8 +1,9 @@
 ﻿using AzureConnectedServices.GrpcService.Models;
+using AzureConnectedServices.Models.Client;
 using ProtoBuf.Grpc;
 using System.ServiceModel;
 
-namespace AzureConnectedServices.GrpcService.Services.CodeFirst
+namespace AzureConnectedServices.GrpcService.Services
 {
     /// <summary>
     /// 
@@ -26,6 +27,6 @@ namespace AzureConnectedServices.GrpcService.Services.CodeFirst
         /// <param name="context"></param>
         /// <returns></returns>
         [OperationContract]
-        Task<SampleCodeFirstReply> WeatherOperation(NoaaWeatherRequest request, CallContext context = default);
+        Task<WeatherResult> WeatherOperation(NoaaWeatherRequest request, CallContext context = default);
     }
 }

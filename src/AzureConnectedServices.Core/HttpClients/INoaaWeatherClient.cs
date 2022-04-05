@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using AzureConnectedServices.Models.Client;
 
-namespace AzureConnectedServices.WorkerService.Clients
+namespace AzureConnectedServices.Core.HttpClients
 {
     public interface INoaaWeatherClient
     {

@@ -18,6 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\AzureConnectedServices.Core\AzureConnectedServices.Core.csproj" />
 		<ProjectReference Include="..\AzureConnectedServices.Models\AzureConnectedServices.Models.csproj" />
 	</ItemGroup>
 

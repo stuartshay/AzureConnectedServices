@@ -1,7 +1,8 @@
 ﻿using System.Text.Json;
 using AzureConnectedServices.Models.Client;
+using Microsoft.Extensions.Logging;
 
-namespace AzureConnectedServices.WorkerService.Clients
+namespace AzureConnectedServices.Core.HttpClients
 {
     public class NoaaWeatherClient : INoaaWeatherClient
     {
@@ -27,7 +28,7 @@ namespace AzureConnectedServices.WorkerService.Clients
                 var jsonResult = await response.Content.ReadAsStringAsync();
                 Console.WriteLine(result);
 
-                result = JsonSerializer.Deserialize<WeatherResult>(jsonResult);   
+                result = JsonSerializer.Deserialize<WeatherResult>(jsonResult);
             }
 
             return result;

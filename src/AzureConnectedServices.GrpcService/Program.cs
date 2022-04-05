@@ -3,8 +3,8 @@ using GrpcBrowser.Configuration;
 using ProtoBuf.Grpc.Server;
 using AzureConnectedServices.Services.ProtoFirst;
 using AzureConnectedServices.Services.Proto;
-
-
+using AzureConnectedServices.GrpcService.Services;
+using AzureConnectedServices.Core.HttpClients;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +20,15 @@ void AddServices()
     builder.Services.AddGrpcReflection();
     builder.Services.AddCodeFirstGrpc();
     builder.Services.AddGrpcBrowser();
+
+    // http Clients
+    builder.Services.AddHttpClient<INoaaWeatherClient, NoaaWeatherClient>(client =>
+    {
+        client.BaseAddress = new Uri("https://www.ncdc.noaa.gov");
+        client.DefaultRequestHeaders.Add("token", "cbhbnwSDElzXjbovAErPxLGDAGiVQaEb");
+    });
+
+
 }
 
 void SetupApp()
