@@ -1,13 +1,13 @@
-﻿using AzureConnectedServices.Models;
+﻿using AzureConnectedServices.Models.Client;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace AzureConnectedServices.WebApi.Extensions
 {
-    public class SwaggeExample : IExamplesProvider<WeatherRequestModel>
+    public class SwaggerExample : IExamplesProvider<AzureConnectedServices.Models.Client.NoaaWeatherRequest>
     {
-        public WeatherRequestModel GetExamples()
+        public NoaaWeatherRequest GetExamples()
         {
-            return new WeatherRequestModel()
+            return new AzureConnectedServices.Models.Client.NoaaWeatherRequest()
             {
                 StationId = "GHCND:USW00094728",
                 DataSetId = "GHCND",

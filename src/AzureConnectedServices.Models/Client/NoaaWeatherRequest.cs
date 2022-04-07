@@ -35,5 +35,11 @@ namespace AzureConnectedServices.Models.Client
         /// </summary>
         [DataMember(Order = 5)]
         public int Limit { get; set; }
+
+        public override string ToString()
+        {
+            return $"StartDate:{StartDate}, EndDate:{EndDate}, DataSetId:{DataSetId}, StationId:{StationId}, Limit:{Limit}";
+        }
+
     }
 }

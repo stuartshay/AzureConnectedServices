@@ -8,6 +8,9 @@ using AzureConnectedServices.Core.HealthChecks;
 using Microsoft.Extensions.Azure;
 using System.Reflection;
 using Swashbuckle.AspNetCore.Filters;
+using AzureConnectedServices.Services.Proto;
+using Mapster;
+using MapsterMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -43,6 +46,8 @@ void SetupConfiguration()
 
 void SetupServices()
 {
+    AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+
     services.Configure<Settings>(configuration.GetSection("AzureConnectedServices:Settings"));
     
     services.AddHealthChecks()
@@ -58,7 +63,16 @@ void SetupServices()
     });
 
     services.AddControllers();
-    
+
+    services.AddGrpcClient<ProtoFirstGreeter.ProtoFirstGreeterClient>(c =>
+    {
+        c.Address = new Uri("https://localhost:7267");
+    });
+    services.AddGrpcClient<NoaaWeather.NoaaWeatherClient>(c =>
+    {
+        c.Address = new Uri("https://localhost:7267");
+    });
+
     services.AddEndpointsApiExplorer();
     services.AddSwaggerGen(s =>
     {
@@ -71,6 +85,10 @@ void SetupServices()
 
 void AddServices()
 {
+    var config = TypeAdapterConfig.GlobalSettings;
+    services.AddSingleton(config);
+    services.AddScoped<IMapper, ServiceMapper>();
+
     services.AddTransient<IWeatherForecastService, WeatherForecastService>();
 }
 

@@ -7,7 +7,7 @@ using System.Text;
 namespace AzureConnectedServices.Services.ProtoFirst;
 
 /// <summary>
-/// ProtoFirstSampleService
+/// Proto First Sample Service
 /// </summary>
 public class ProtoFirstSampleService : ProtoFirstGreeter.ProtoFirstGreeterBase
 {
@@ -19,7 +19,7 @@ public class ProtoFirstSampleService : ProtoFirstGreeter.ProtoFirstGreeterBase
     /// <returns></returns>
     public override Task<SampleProtoFirstReply> UnaryOperation(SampleProtoFirstRequest request, ServerCallContext context)
     {
-        return Task.FromResult(new SampleProtoFirstReply { Content = $"Your request content was '{request.Content}'" });
+        return Task.FromResult(new SampleProtoFirstReply { Content = $"Request Content:{request.Content} {DateTime.Now}" });
     }
 
     /// <summary>

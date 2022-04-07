@@ -1,35 +1,43 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>39c343c4-bd1b-4e16-a24a-30b436cdcba4</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\..</DockerfileContext>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>39c343c4-bd1b-4e16-a24a-30b436cdcba4</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<DockerfileContext>..\..</DockerfileContext>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AspNetCore.HealthChecks.UI" Version="6.0.4" />
-    <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.4" />
-    <PackageReference Include="AspNetCore.HealthChecks.UI.Core" Version="6.0.4" />
-    <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="6.0.4" />
-    <PackageReference Include="Azure.Identity" Version="1.5.0" />
-    <PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" Version="5.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.2" />
-    <PackageReference Include="Swashbuckle.Examples" Version="3.12.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AspNetCore.HealthChecks.UI" Version="6.0.4" />
+		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.4" />
+		<PackageReference Include="AspNetCore.HealthChecks.UI.Core" Version="6.0.4" />
+		<PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="6.0.4" />
+		<PackageReference Include="Azure.Identity" Version="1.6.0" />
+		<PackageReference Include="Grpc.AspNetCore" Version="2.44.0" />
+		<PackageReference Include="Grpc.AspNetCore.Web" Version="2.44.0" />
+		<PackageReference Include="Grpc.Net.Client" Version="2.44.0" />
+		<PackageReference Include="Mapster" Version="7.3.0" />
+		<PackageReference Include="Mapster.DependencyInjection" Version="1.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Certificate" Version="6.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.3" />
+		<PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" Version="5.0.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.2" />
+		<PackageReference Include="Swashbuckle.Examples" Version="3.12.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\AzureConnectedServices.Core\AzureConnectedServices.Core.csproj" />
-    <ProjectReference Include="..\AzureConnectedServices.Models\AzureConnectedServices.Models.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\AzureConnectedServices.Core\AzureConnectedServices.Core.csproj" />
+		<ProjectReference Include="..\AzureConnectedServices.GrpcService\AzureConnectedServices.GrpcService.csproj" />
+		<ProjectReference Include="..\AzureConnectedServices.Models\AzureConnectedServices.Models.csproj" />
+	</ItemGroup>
 
 	<PropertyGroup>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<NoWarn>$(NoWarn);1591</NoWarn>
 	</PropertyGroup>
-		
+
 </Project>

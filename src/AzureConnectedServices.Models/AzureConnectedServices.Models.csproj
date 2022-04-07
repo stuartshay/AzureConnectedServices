@@ -28,4 +28,8 @@
 		<Protobuf Include="Protos/noaa.proto" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Queue\" />
+	</ItemGroup>
+
 </Project>

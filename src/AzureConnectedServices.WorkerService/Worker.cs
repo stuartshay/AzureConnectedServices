@@ -1,6 +1,5 @@
 using Azure.Messaging.ServiceBus;
 using AzureConnectedServices.Core.HttpClients;
-using AzureConnectedServices.Models;
 using AzureConnectedServices.Models.Client;
 using System.Text.Json;
 
@@ -52,9 +51,6 @@ namespace AzureConnectedServices.WorkerService
                  };
 
                  //var result = await _noaaWeatherClient.WeatherForecast(request);
-
-
-
                  await _processor.StartProcessingAsync();
 
                  await Task.Delay(2500, stoppingToken);
@@ -79,7 +75,7 @@ namespace AzureConnectedServices.WorkerService
         private static async Task MessageHandler(ProcessMessageEventArgs args)
         {
             string body = args.Message.Body.ToString();
-            var message = JsonSerializer.Deserialize<WeatherRequestModel>(body);
+            var message = JsonSerializer.Deserialize<NoaaWeatherRequest>(body);
 
             Console.WriteLine($"Received: {message?.ToString()}");
 
@@ -91,6 +87,5 @@ namespace AzureConnectedServices.WorkerService
             Console.WriteLine(args.Exception.ToString());
             return Task.CompletedTask;
         }
-
     }
 }

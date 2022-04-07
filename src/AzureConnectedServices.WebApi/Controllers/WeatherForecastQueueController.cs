@@ -1,10 +1,8 @@
 using Azure.Messaging.ServiceBus;
 using AzureConnectedServices.Core.Configuration;
-using AzureConnectedServices.Models;
 using AzureConnectedServices.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System.Text;
 using System.Text.Json;
 
 namespace AzureConnectedServices.Controllers
@@ -12,18 +10,19 @@ namespace AzureConnectedServices.Controllers
     [ApiController]
     [Route("[controller]")]
     [Produces("application/json")]
-    public class WeatherForecastController : ControllerBase
+    public class WeatherForecastQueueController : ControllerBase
     {
         private readonly IWeatherForecastService _weatherForecastService;
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<WeatherForecastQueueController> _logger;
 
         private readonly Settings _settings;
 
         private readonly ServiceBusClient _client;
 
-        public WeatherForecastController(ServiceBusClient client, IWeatherForecastService weatherForecastService, 
-            ILogger<WeatherForecastController> logger, IOptionsSnapshot<Settings> settings)
+        public WeatherForecastQueueController(ServiceBusClient client,IWeatherForecastService weatherForecastService,
+            ILogger<WeatherForecastQueueController> logger, 
+            IOptionsSnapshot<Settings> settings)
         {
             _logger = logger;
             _settings = settings.Value;
@@ -36,9 +35,9 @@ namespace AzureConnectedServices.Controllers
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("queue")]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> Post([FromBody] WeatherRequestModel request)
+        public async Task<ActionResult> PostQueue([FromBody] AzureConnectedServices.Models.Client.NoaaWeatherRequest request)
         {
             var body = JsonSerializer.Serialize(request);
             //var message = new ServiceBusMessage
@@ -54,11 +53,8 @@ namespace AzureConnectedServices.Controllers
             // send the message
             await sender.SendMessageAsync(message);
 
-            return Ok();
+            return Ok("Hello");
         }
-
-
-
 
     }
 }

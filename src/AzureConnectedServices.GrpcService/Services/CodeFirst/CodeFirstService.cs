@@ -20,10 +20,6 @@ public class CodeFirstGreeterService : ICodeFirstGreeterService
         return Task.FromResult(new SampleCodeFirstReply { Content = content });
     }
 
-
-
-
-
     public IAsyncEnumerable<SampleCodeFirstReply> ServerStreamingOperation(SampleCodeFirstRequest request, CallContext context = default)
     {
         return Observable.Interval(TimeSpan.FromSeconds(1))

@@ -3,7 +3,7 @@ using AzureConnectedServices.Models.Client;
 using ProtoBuf.Grpc;
 using AzureConnectedServices.Core.HttpClients;
 
-namespace AzureConnectedServices.GrpcService.Services
+namespace AzureConnectedServices.GrpcService.Services.CodeFirst
 {
     /// <summary>
     /// 
