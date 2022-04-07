@@ -44,7 +44,7 @@ namespace AzureConnectedServices.Controllers
             //TODO: Implement Rpc Operation
             var response = await _client.NoaaWeatherOperationAsync(requestMapped);
             
-            return Ok();
+            return Ok(response);
         }
     }
 }

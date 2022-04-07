@@ -28,7 +28,6 @@ void AddServices()
         client.DefaultRequestHeaders.Add("token", "cbhbnwSDElzXjbovAErPxLGDAGiVQaEb");
     });
 
-
 }
 
 void SetupApp()
@@ -42,6 +41,8 @@ void SetupApp()
     {
         endpoints.MapGrpcService<CodeFirstGreeterService>().AddToGrpcBrowserWithService<ICodeFirstGreeterService>();
         endpoints.MapGrpcService<NoaaWeatherService>().AddToGrpcBrowserWithService<INoaaWeatherService>();
+
+        endpoints.MapGrpcService<ProtoFirstWeatherService>().AddToGrpcBrowserWithClient <NoaaWeather.NoaaWeatherClient>();
         endpoints.MapGrpcService<ProtoFirstSampleService>().AddToGrpcBrowserWithClient<ProtoFirstGreeter.ProtoFirstGreeterClient>();
 
         endpoints.MapGrpcReflectionService();
