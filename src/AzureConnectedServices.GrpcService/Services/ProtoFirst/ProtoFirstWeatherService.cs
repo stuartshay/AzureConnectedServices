@@ -8,7 +8,7 @@ namespace AzureConnectedServices.Services.ProtoFirst;
 /// </summary>
 public class ProtoFirstWeatherService : NoaaWeather.NoaaWeatherBase
 {
-    public override async Task<AzureConnectedServices.Services.Proto.SampleProtoFirstReply> NoaaWeatherOperation(NoaaWeatherRequest request, ServerCallContext context)
+    public override async Task<SampleProtoFirstReply> NoaaWeatherOperation(NoaaWeatherRequest request, ServerCallContext context)
     {
         var content = $"Your request content was '{request.StationId}'|{DateTime.Now}";
         
