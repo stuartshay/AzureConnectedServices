@@ -7,12 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="Protos/greet.proto" />
-		<None Remove="Protos/services.proto" />
-		<None Remove="Protos/noaa.proto" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Google.Protobuf" Version="3.20.0" />
 		<PackageReference Include="Grpc" Version="2.45.0" />
 		<PackageReference Include="Grpc.AspNetCore" Version="2.44.0" />
@@ -26,10 +20,6 @@
 		<Protobuf Include="Protos/greet.proto" />
 		<Protobuf Include="Protos/services.proto" />
 		<Protobuf Include="Protos/noaa.proto" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Queue\" />
 	</ItemGroup>
 
 </Project>
