@@ -37,7 +37,7 @@ namespace AzureConnectedServices.Controllers
         /// <returns></returns>
         [HttpPost("queue")]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> PostQueue([FromBody] AzureConnectedServices.Models.Client.NoaaWeatherRequest request)
+        public async Task<ActionResult> PostQueue([FromBody] AzureConnectedServices.Models.Client.NoaaClimateDataRequest request)
         {
             var body = JsonSerializer.Serialize(request);
             //var message = new ServiceBusMessage

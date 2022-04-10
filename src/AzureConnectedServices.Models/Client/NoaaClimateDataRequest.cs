@@ -3,7 +3,7 @@
 namespace AzureConnectedServices.Models.Client
 {
     [DataContract]
-    public class NoaaWeatherRequest
+    public class NoaaClimateDataRequest
     {
         /// <summary>
         /// Station Id

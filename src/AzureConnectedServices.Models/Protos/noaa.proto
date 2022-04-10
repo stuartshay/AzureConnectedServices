@@ -1,13 +1,39 @@
 syntax = "proto3";
 
+import "google/protobuf/timestamp.proto";
+
 option csharp_namespace = "AzureConnectedServices.Services.Proto";
 
 package azureconnectedservices.protobuf;
 
-message NoaaWeatherRequest {
+message NoaaClimateDataRequest {
   string stationId = 1;
-  string datasetId = 2;
+  string dataSetId = 2;
   string startDate = 3;
   string endDate = 4;
   int32 limit = 5;
 }
+
+message NoaaClimateDataResponse {
+  Metadata metadata = 1;
+  repeated Result result = 2;
+}
+
+message Metadata {
+  Resultset resultset = 1;
+}
+
+message Resultset {
+  int32 offset = 1;
+  int32 count = 2;
+  int32 limit = 3;
+}
+
+message Result {
+  google.protobuf.Timestamp date = 1;
+  string datatype = 2;
+  string station = 3;
+  string attributes = 4;
+  int32 value = 5;
+}
+

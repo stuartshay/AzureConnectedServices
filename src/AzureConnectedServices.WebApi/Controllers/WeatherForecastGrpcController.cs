@@ -31,19 +31,24 @@ namespace AzureConnectedServices.Controllers
         }
 
         /// <summary>
-        /// Post Weather Request to GrpcService. 
+        /// Post Weather Request to Grpc Service. 
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost("grpc")]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> PostGprc([FromBody] AzureConnectedServices.Models.Client.NoaaWeatherRequest request)
+        public async Task<ActionResult> PostGprc([FromBody] AzureConnectedServices.Models.Client.NoaaClimateDataRequest request)
         {
-            var requestMapped = _mapper.Map<Services.Proto.NoaaWeatherRequest>(request);
-       
-            //TODO: Implement Rpc Operation
+            var requestMapped = _mapper.Map<NoaaClimateDataRequest>(request);
+
             var response = await _client.NoaaWeatherOperationAsync(requestMapped);
-            
+            //TODO: Map Grpc DateTime to .NET DateTime
+            foreach (var item in response.Result)
+            {
+                var x1 = item.Date;
+                //var x = _mapper.Map<Models.Client.Result>(item);
+            }
+
             return Ok(response);
         }
     }

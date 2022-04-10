@@ -10,13 +10,13 @@ namespace AzureConnectedServices.GrpcService.Services.CodeFirst
     /// </summary>
     public class NoaaWeatherService : INoaaWeatherService
     {
-        private readonly INoaaWeatherClient _noaaWeatherClient;
+        private readonly INoaaClimateDataClient _noaaWeatherClient;
 
         private readonly ILogger<NoaaWeatherService> _logger;
 
         private readonly HttpClient _httpClient;
 
-        public NoaaWeatherService(INoaaWeatherClient noaaWeatherClient, ILogger<NoaaWeatherService> logger) 
+        public NoaaWeatherService(INoaaClimateDataClient noaaWeatherClient, ILogger<NoaaWeatherService> logger) 
         {
             _noaaWeatherClient = noaaWeatherClient;
         }
@@ -28,11 +28,11 @@ namespace AzureConnectedServices.GrpcService.Services.CodeFirst
             return Task.FromResult(new SampleCodeFirstReply { Content = content });
         }
 
-        public async Task<WeatherResult> WeatherOperation(NoaaWeatherRequest request, CallContext context = default)
+        public async Task<ClimateDataResult> WeatherOperation(NoaaClimateDataRequest request, CallContext context = default)
         {
             var content = $"Your request content was '{request.StationId}'|{DateTime.Now}";
 
-            var requestHardCode = new NoaaWeatherRequest
+            var requestHardCode = new NoaaClimateDataRequest
             {
                 StationId = "GHCND:USW00094728",
                 DataSetId = "GHCND",
@@ -41,7 +41,7 @@ namespace AzureConnectedServices.GrpcService.Services.CodeFirst
                 Limit = 100,
             };
 
-            WeatherResult? result = await _noaaWeatherClient.WeatherForecast(requestHardCode);
+            ClimateDataResult? result = await _noaaWeatherClient.ClimateData(requestHardCode);
             return result;
         }
     }

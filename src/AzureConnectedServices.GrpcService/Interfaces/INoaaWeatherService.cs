@@ -27,6 +27,6 @@ namespace AzureConnectedServices.GrpcService.Services
         /// <param name="context"></param>
         /// <returns></returns>
         [OperationContract]
-        Task<WeatherResult> WeatherOperation(NoaaWeatherRequest request, CallContext context = default);
+        Task<ClimateDataResult> WeatherOperation(NoaaClimateDataRequest request, CallContext context = default);
     }
 }

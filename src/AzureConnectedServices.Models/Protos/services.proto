@@ -15,5 +15,5 @@ service ProtoFirstGreeter {
 }
 
 service NoaaWeather {
-  rpc NoaaWeatherOperation (NoaaWeatherRequest) returns (SampleProtoFirstReply);
+  rpc NoaaWeatherOperation (NoaaClimateDataRequest) returns (NoaaClimateDataResponse);
 }

@@ -3,11 +3,11 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace AzureConnectedServices.WebApi.Extensions
 {
-    public class SwaggerExample : IExamplesProvider<AzureConnectedServices.Models.Client.NoaaWeatherRequest>
+    public class SwaggerExample : IExamplesProvider<AzureConnectedServices.Models.Client.NoaaClimateDataRequest>
     {
-        public NoaaWeatherRequest GetExamples()
+        public NoaaClimateDataRequest GetExamples()
         {
-            return new AzureConnectedServices.Models.Client.NoaaWeatherRequest()
+            return new AzureConnectedServices.Models.Client.NoaaClimateDataRequest()
             {
                 StationId = "GHCND:USW00094728",
                 DataSetId = "GHCND",

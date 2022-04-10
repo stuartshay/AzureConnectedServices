@@ -3,8 +3,8 @@ using AzureConnectedServices.Models.Client;
 
 namespace AzureConnectedServices.Core.HttpClients
 {
-    public interface INoaaWeatherClient
+    public interface INoaaClimateDataClient
     {
-        Task<WeatherResult> WeatherForecast(NoaaWeatherRequest request);
+        Task<ClimateDataResult> ClimateData(NoaaClimateDataRequest request);
     }
 }

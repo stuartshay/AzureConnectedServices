@@ -13,9 +13,9 @@ namespace AzureConnectedServices.WorkerService
 
         private ServiceBusClient _client;
         private ServiceBusProcessor _processor;
-        private readonly INoaaWeatherClient _noaaWeatherClient;
+        private readonly INoaaClimateDataClient _noaaWeatherClient;
 
-        public Worker(INoaaWeatherClient noaaWeatherClient, ILogger<Worker> logger, WorkerStateService workerStateService, IConfiguration configuration)
+        public Worker(INoaaClimateDataClient noaaWeatherClient, ILogger<Worker> logger, WorkerStateService workerStateService, IConfiguration configuration)
         {
             _logger = logger;
             _workerStateService = workerStateService;
@@ -41,7 +41,7 @@ namespace AzureConnectedServices.WorkerService
                 _processor.ProcessMessageAsync += MessageHandler;
                 _processor.ProcessErrorAsync += ErrorHandler;
 
-                 var request = new NoaaWeatherRequest
+                 var request = new NoaaClimateDataRequest
                  {
                      StationId = "GHCND:USW00094728",
                      DataSetId = "GHCND",
@@ -75,7 +75,7 @@ namespace AzureConnectedServices.WorkerService
         private static async Task MessageHandler(ProcessMessageEventArgs args)
         {
             string body = args.Message.Body.ToString();
-            var message = JsonSerializer.Deserialize<NoaaWeatherRequest>(body);
+            var message = JsonSerializer.Deserialize<NoaaClimateDataRequest>(body);
 
             Console.WriteLine($"Received: {message?.ToString()}");
 

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace AzureConnectedServices.Models.Client
 {
     [DataContract]
-    public class WeatherResult
+    public class ClimateDataResult
     {
         [DataMember(Order = 1)]
         [JsonPropertyName("metadata")]
@@ -28,15 +28,15 @@ namespace AzureConnectedServices.Models.Client
     {
         [DataMember(Order = 1)]
         [JsonPropertyName("offset")]
-        public long Offset { get; set; }
+        public int Offset { get; set; }
 
         [DataMember(Order = 2)]
         [JsonPropertyName("count")]
-        public long Count { get; set; }
+        public int Count { get; set; }
 
         [DataMember(Order = 3)]
         [JsonPropertyName("limit")]
-        public long Limit { get; set; }
+        public int Limit { get; set; }
     }
 
     [DataContract]
