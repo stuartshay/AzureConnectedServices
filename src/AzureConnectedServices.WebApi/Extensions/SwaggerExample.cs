@@ -7,7 +7,7 @@ namespace AzureConnectedServices.WebApi.Extensions
     {
         public NoaaClimateDataRequest GetExamples()
         {
-            return new AzureConnectedServices.Models.Client.NoaaClimateDataRequest()
+            return new NoaaClimateDataRequest()
             {
                 StationId = "GHCND:USW00094728",
                 DataSetId = "GHCND",

@@ -4,7 +4,7 @@ using Mapster;
 
 namespace AzureConnectedServices.WebApi.Mappings
 {
-    public class NoaaWeatherMappings : IRegister
+    public class NoaaClimateDataMappings : IRegister
     {
         public void Register(TypeAdapterConfig config)
         {
@@ -20,8 +20,7 @@ namespace AzureConnectedServices.WebApi.Mappings
 
         private static void SetupServiceModelsToProto(TypeAdapterConfig config)
         {
-            config.NewConfig<NoaaClimateDataRequest, Services.Proto.NoaaClimateDataRequest>();
-
+            config.NewConfig<NoaaClimateDataRequest, AzureConnectedServices.Services.Proto.NoaaClimateDataRequest>();
         }
     }
 }

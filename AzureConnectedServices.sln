@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureConnectedServices.Mode
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureConnectedServices.GrpcService", "src\AzureConnectedServices.GrpcService\AzureConnectedServices.GrpcService.csproj", "{0A037C56-0937-4826-BF59-9FF9EE3CD91B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureConnectedServices.Auth", "src\AzureConnectedServices.Auth\AzureConnectedServices.Auth.csproj", "{459D9AD3-6E3B-4DF5-947D-F034535B34C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{0A037C56-0937-4826-BF59-9FF9EE3CD91B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A037C56-0937-4826-BF59-9FF9EE3CD91B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A037C56-0937-4826-BF59-9FF9EE3CD91B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{459D9AD3-6E3B-4DF5-947D-F034535B34C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{459D9AD3-6E3B-4DF5-947D-F034535B34C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{459D9AD3-6E3B-4DF5-947D-F034535B34C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{459D9AD3-6E3B-4DF5-947D-F034535B34C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{D8FD29FD-9F30-4EB8-89C2-51887FC7E684} = {78368F54-A52F-480B-91CF-996A1E61A58A}
 		{DA6661D6-22F4-46DA-BEC4-6DFE828C9850} = {78368F54-A52F-480B-91CF-996A1E61A58A}
 		{0A037C56-0937-4826-BF59-9FF9EE3CD91B} = {78368F54-A52F-480B-91CF-996A1E61A58A}
+		{459D9AD3-6E3B-4DF5-947D-F034535B34C5} = {78368F54-A52F-480B-91CF-996A1E61A58A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {821912E7-B3C3-4A83-B56E-5C16400B94C1}

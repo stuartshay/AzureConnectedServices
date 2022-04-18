@@ -7,16 +7,21 @@ using HealthChecks.UI.Client;
 using AzureConnectedServices.Core.HealthChecks;
 using Microsoft.Extensions.Azure;
 using System.Reflection;
+using AzureConnectedServices.Core.Logging;
 using Swashbuckle.AspNetCore.Filters;
 using AzureConnectedServices.Services.Proto;
+using AzureConnectedServices.WebApi.Services;
+using AzureConnectedServices.WebApi.Services.Interfaces;
 using Mapster;
 using MapsterMapper;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 var services = builder.Services;
 
 SetupConfiguration();
+SetupLogger();
 SetupServices();
 AddServices();
 
@@ -44,6 +49,11 @@ void SetupConfiguration()
     builder.Services.AddAzureAppConfiguration();
 }
 
+void SetupLogger()
+{
+    builder.Host.UseSerilog(Logging.ConfigureLogger);
+}
+
 void SetupServices()
 {
     AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
@@ -57,9 +67,9 @@ void SetupServices()
       .AddHealthChecksUI()
       .AddInMemoryStorage();
 
-    services.AddAzureClients(builder =>
+    services.AddAzureClients(bldr =>
     {
-        builder.AddServiceBusClient(configuration["AzureConnectedServices:Settings:ServiceBusConnectionString"]);
+        bldr.AddServiceBusClient(configuration["AzureConnectedServices:Settings:ServiceBusConnectionString"]);
     });
 
     services.AddControllers();
@@ -89,6 +99,7 @@ void AddServices()
     services.AddSingleton(config);
     services.AddScoped<IMapper, ServiceMapper>();
 
+    services.AddTransient<IClimateDataService, ClimateDataService>();
     services.AddTransient<IWeatherForecastService, WeatherForecastService>();
 }
 

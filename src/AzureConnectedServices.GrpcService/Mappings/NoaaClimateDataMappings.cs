@@ -16,7 +16,7 @@ namespace AzureConnectedServices.GrpcService.Mappings
         {
             config.NewConfig<Result, AzureConnectedServices.Services.Proto.Result>()
                 .Map(d => d.Date, s => Timestamp.FromDateTime(DateTime.SpecifyKind(s.Date, DateTimeKind.Utc)));
-
+   
             config.NewConfig<Resultset, AzureConnectedServices.Services.Proto.Resultset>();
         }
 

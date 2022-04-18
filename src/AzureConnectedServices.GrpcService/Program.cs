@@ -5,16 +5,24 @@ using AzureConnectedServices.Services.ProtoFirst;
 using AzureConnectedServices.Services.Proto;
 using AzureConnectedServices.GrpcService.Services;
 using AzureConnectedServices.Core.HttpClients;
+using AzureConnectedServices.Core.Logging;
 using Mapster;
 using MapsterMapper;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+SetupLogger();
 AddServices();
 
 var app = builder.Build();
 SetupApp();
 app.Run();
+
+void SetupLogger()
+{
+    builder.Host.UseSerilog(Logging.ConfigureLogger);
+}
 
 void AddServices()
 {
