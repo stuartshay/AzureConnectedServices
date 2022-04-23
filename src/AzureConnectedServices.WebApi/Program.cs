@@ -10,8 +10,10 @@ using System.Reflection;
 using AzureConnectedServices.Core.Logging;
 using Swashbuckle.AspNetCore.Filters;
 using AzureConnectedServices.Services.Proto;
+using AzureConnectedServices.WebApi.Mappings;
 using AzureConnectedServices.WebApi.Services;
 using AzureConnectedServices.WebApi.Services.Interfaces;
+using Google.Protobuf.Collections;
 using Mapster;
 using MapsterMapper;
 using Serilog;
@@ -22,6 +24,7 @@ var services = builder.Services;
 
 SetupConfiguration();
 SetupLogger();
+AddMappings();
 SetupServices();
 AddServices();
 
@@ -91,6 +94,19 @@ void SetupServices()
         s.ExampleFilters();
     });
     services.AddSwaggerExamplesFromAssemblies(Assembly.GetEntryAssembly());
+}
+
+void AddMappings()
+{
+    var assemblies = new List<Assembly>();
+    var mapping = Assembly.GetAssembly(typeof(NoaaClimateDataMappings));
+    if (mapping != null)
+    {
+        assemblies.Add(mapping);
+        TypeAdapterConfig.GlobalSettings.Default.PreserveReference(true);
+        TypeAdapterConfig.GlobalSettings.Scan(assemblies.ToArray());
+        TypeAdapterConfig.GlobalSettings.Default.UseDestinationValue(member => member.SetterModifier == AccessModifier.None && member.Type.IsGenericType && member.Type.GetGenericTypeDefinition() == typeof(RepeatedField<>));
+    }
 }
 
 void AddServices()

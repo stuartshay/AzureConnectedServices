@@ -32,7 +32,7 @@ namespace AzureConnectedServices.WebApi.Services
                 var value = item.value;
                 var index = item.i;
 
-                clientResult[index] = new AzureConnectedServices.Models.Client.Result
+                clientResult[item.i] = new AzureConnectedServices.Models.Client.Result
                 {
                     Station = item.value.Station,
                     Value = item.value.Value,

@@ -34,7 +34,7 @@ namespace AzureConnectedServices.Test.Controllers
         }
 
         [Fact]
-        [Trait("Category", "Mock")]
+        [Trait("Category", "Controller")]
         public async Task Get_ClimateData_ReturnsData()
         {
             // Arrange 

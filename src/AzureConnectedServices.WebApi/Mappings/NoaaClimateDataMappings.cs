@@ -21,6 +21,10 @@ namespace AzureConnectedServices.WebApi.Mappings
         private static void SetupServiceModelsToProto(TypeAdapterConfig config)
         {
             config.NewConfig<NoaaClimateDataRequest, AzureConnectedServices.Services.Proto.NoaaClimateDataRequest>();
+
+            config.NewConfig<Result, AzureConnectedServices.Services.Proto.Result>()
+                .Map(d => d.Date, s => Timestamp.FromDateTime(DateTime.SpecifyKind(s.Date, DateTimeKind.Utc)));
+
         }
     }
 }
