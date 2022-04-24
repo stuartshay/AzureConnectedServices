@@ -1,32 +1,41 @@
 using Azure.Messaging.ServiceBus;
 using AzureConnectedServices.Core.Configuration;
+using AzureConnectedServices.Core.Constants;
+using AzureConnectedServices.Core.Queue;
+using AzureConnectedServices.Models.Message;
 using AzureConnectedServices.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System.Text.Json;
 
-namespace AzureConnectedServices.Controllers
+namespace AzureConnectedServices.WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Consumes("application/json")]
     [Produces("application/json")]
-    public class WeatherForecastQueueController : ControllerBase
+    public class ClimateDataQueueController : ControllerBase
     {
         private readonly IWeatherForecastService _weatherForecastService;
 
-        private readonly ILogger<WeatherForecastQueueController> _logger;
+        private readonly ILogger<ClimateDataQueueController> _logger;
 
         private readonly Settings _settings;
 
         private readonly ServiceBusClient _client;
 
-        public WeatherForecastQueueController(ServiceBusClient client,IWeatherForecastService weatherForecastService,
-            ILogger<WeatherForecastQueueController> logger, 
+        private readonly IMessageService _messageService;
+
+        public ClimateDataQueueController(
+            ServiceBusClient client,
+            IWeatherForecastService weatherForecastService,
+            IMessageService messageService,
+            ILogger<ClimateDataQueueController> logger, 
             IOptionsSnapshot<Settings> settings)
         {
             _logger = logger;
             _settings = settings.Value;
             _weatherForecastService = weatherForecastService;
+            _messageService = messageService;
             _client = client;
         }
 
@@ -39,21 +48,15 @@ namespace AzureConnectedServices.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult> PostQueue([FromBody] AzureConnectedServices.Models.Client.NoaaClimateDataRequest request)
         {
-            var body = JsonSerializer.Serialize(request);
-            //var message = new ServiceBusMessage
-            //{
-            //    Body = new BinaryData(body),
-            //    CorrelationId = System.Guid.NewGuid().ToString(),
-            //    MessageId = System.Guid.NewGuid().ToString(),
-            //};
+            //Message Service
+           var messageMetadata = new MessageMetadata
+           {
+               CorrelationId = Guid.NewGuid(), 
+               MessageId = Guid.NewGuid(),
+           };
 
-            var sender = _client.CreateSender("weatherrequest");
-            ServiceBusMessage message = new ServiceBusMessage("body");
-
-            // send the message
-            await sender.SendMessageAsync(message);
-
-            return Ok("Hello");
+           await _messageService.SendAsync(request, SettingsConstant.ClimateDataQueue, messageMetadata);
+           return Ok(true);
         }
 
     }

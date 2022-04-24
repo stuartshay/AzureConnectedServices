@@ -8,6 +8,7 @@ using AzureConnectedServices.Core.HealthChecks;
 using Microsoft.Extensions.Azure;
 using System.Reflection;
 using AzureConnectedServices.Core.Logging;
+using AzureConnectedServices.Core.Queue;
 using Swashbuckle.AspNetCore.Filters;
 using AzureConnectedServices.Services.Proto;
 using AzureConnectedServices.WebApi.Mappings;
@@ -70,9 +71,9 @@ void SetupServices()
       .AddHealthChecksUI()
       .AddInMemoryStorage();
 
-    services.AddAzureClients(bldr =>
+    services.AddAzureClients(a =>
     {
-        bldr.AddServiceBusClient(configuration["AzureConnectedServices:Settings:ServiceBusConnectionString"]);
+        a.AddServiceBusClient(configuration["AzureConnectedServices:Settings:ServiceBusConnectionString"]);
     });
 
     services.AddControllers();
@@ -117,6 +118,12 @@ void AddServices()
 
     services.AddTransient<IClimateDataService, ClimateDataService>();
     services.AddTransient<IWeatherForecastService, WeatherForecastService>();
+
+
+
+
+
+    services.AddTransient<IMessageService, AzureServiceBusService>();
 }
 
 void SetupApp()
