@@ -22,7 +22,7 @@ namespace AzureConnectedServices.Test.Data
 
             var results = resultFaker.Generate(count);
 
-            RepeatedField<Services.Proto.Result> list = new RepeatedField<Services.Proto.Result>();
+            //RepeatedField<Services.Proto.Result> list = new RepeatedField<Services.Proto.Result>();
             //list.Add(new Result{Attributes = "A", Datatype = "B", Station = "C", Value = 999});
             //list.Add(new Result { Attributes = "A", Datatype = "B", Station = "C", Value = 999 });
 

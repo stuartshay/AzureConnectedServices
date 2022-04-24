@@ -10,14 +10,11 @@ namespace AzureConnectedServices.Core.Queue
     {
         private readonly ServiceBusClient _serviceBusClient;
 
-        private readonly ILogger<AzureServiceBusService> _logger;
-
         public AzureServiceBusService(
-            ServiceBusClient serviceBusClient,
-            ILogger<AzureServiceBusService> logger)
+            ServiceBusClient serviceBusClient)
         {
             _serviceBusClient = serviceBusClient;
-            _logger = logger;
+
         }
 
         public async Task SendAsync<TMessageType>(TMessageType message, string queueName,
@@ -36,6 +33,7 @@ namespace AzureConnectedServices.Core.Queue
 
             ServiceBusSender sender = _serviceBusClient.CreateSender(queueName);
             await sender.SendMessageAsync(queueMessage);
+
         }
 
     }

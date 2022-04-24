@@ -38,7 +38,7 @@ namespace AzureConnectedServices.Test.Mappings
             };
 
             // Act
-            var requestMapped = _mapper.Map<Services.Proto.NoaaClimateDataRequest>(request);
+            var requestMapped = _mapper.Map<AzureConnectedServices.Services.Proto.NoaaClimateDataRequest>(request);
            
             // Assert
             Assert.Equal(request.DataSetId, requestMapped.DataSetId);
@@ -63,10 +63,10 @@ namespace AzureConnectedServices.Test.Mappings
             };
 
             // Act
-            var resultMapped = _mapper.Map<Services.Proto.Result>(result);
+            var resultMapped = _mapper.Map<AzureConnectedServices.Services.Proto.Result>(result);
 
             // Assert
-            Assert.IsType<Services.Proto.Result>(resultMapped);
+            Assert.IsType<AzureConnectedServices.Services.Proto.Result>(resultMapped);
             Assert.Equal(result.Datatype, resultMapped.Datatype);
             Assert.Equal(result.Station, resultMapped.Station);
             Assert.Equal(result.Attributes, resultMapped.Attributes);
@@ -80,13 +80,13 @@ namespace AzureConnectedServices.Test.Mappings
             var count = 100;
             
             var data = ClimateDataSet.GetClimateDataResult(count).Results;
-            var metadata = new Services.Proto.Metadata 
+            var metadata = new AzureConnectedServices.Services.Proto.Metadata 
                 { Resultset = new Resultset { Count = count, } };
 
             foreach (var item in data)
             {
-                var resultMapped = _mapper.Map<Services.Proto.Result>(item);
-                Assert.IsType<Services.Proto.Result>(resultMapped);
+                var resultMapped = _mapper.Map<AzureConnectedServices.Services.Proto.Result>(item);
+                Assert.IsType<AzureConnectedServices.Services.Proto.Result>(resultMapped);
                 Assert.Equal(item.Datatype, resultMapped.Datatype);
             }
 
@@ -96,11 +96,10 @@ namespace AzureConnectedServices.Test.Mappings
             };
             NoaaClimateDataTransformations.MapResultsToProto(response.Result, data );
 
-            Assert.IsType<Services.Proto.NoaaClimateDataResponse>(response);
+            Assert.IsType<AzureConnectedServices.Services.Proto.NoaaClimateDataResponse>(response);
             Assert.Equal(count, response.Result.Count);
 
         }
-
 
     }
 }

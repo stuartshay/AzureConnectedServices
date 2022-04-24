@@ -119,10 +119,6 @@ void AddServices()
     services.AddTransient<IClimateDataService, ClimateDataService>();
     services.AddTransient<IWeatherForecastService, WeatherForecastService>();
 
-
-
-
-
     services.AddTransient<IMessageService, AzureServiceBusService>();
 }
 
